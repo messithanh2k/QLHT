@@ -3,7 +3,9 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cors from 'cors';
 import auth from './routes/auth.js'
+import student from './routes/student.js'
 import mongoose from 'mongoose'
+
 
 const URI = 'mongodb+srv://messithanh2k:messithanh2k@qlht.kpuwx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const app = express()
@@ -30,3 +32,5 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', auth)
+
+app.use('/student', student)

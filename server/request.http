@@ -16,3 +16,33 @@ Content-Type: application/json
     "password": "messithanh"
 }
 
+###
+
+POST http://localhost:3001/student/create
+Content-Type: application/json
+
+{
+    "FullName": "Nguyen van C",
+    "DateOfBirth": "2000-12-12",
+    "SchoolYear": 63,
+    "Class": ,
+    "Sex": "Male", 
+    "Major": "IT1",
+    "Born": "Luong son, hoa binh",
+    "IdentityNumber": "114896488",
+    "PhoneNumber": "151564856413"
+}
+
+###
+
+GET http://localhost:3001/student/11486488
+Content-Type: application/json
+
+###
+DELETE http://localhost:3001/student/20180012
+Content-Type: application/json
+
+
+###
+DELETE http://localhost:3001/auth/delete/20180000@sis.hust.edu.vn
+Content-Type: application/json
