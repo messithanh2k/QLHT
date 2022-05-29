@@ -1,11 +1,12 @@
 import {Container, AppBar, Toolbar, IconButton, Typography, Button, Snackbar,Alert} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
-import { DataGrid, GridApi, GridCellValue } from '@mui/x-data-grid';
+import { DataGrid, GridApi } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import FormDialog from './FormDialog';
+import DetailFormDialog from './DetailFormDialog'
 import React from 'react';
-
+import * as ReactDOM from 'react-dom/client';
 
 class Account extends React.Component {
   constructor(props) {
@@ -17,30 +18,22 @@ class Account extends React.Component {
         { field: 'FullName', headerName: 'Full Name', width: 250 },
         { field: 'Email', headerName: 'Email', width: 270 },
         {
-          field: 'Password',
-          headerName: 'Password',
-          sortable: false,
+          field: 'IdentityNumber',
+          headerName: 'Identity Number',
           width: 200,
         },
         {
           field: 'detail',
-          headerName: 'Detail',
+          headerName: 'Details',
           sortable: false,
           renderCell: (params) => {
-            const onClick = () => {
-              // e.stopPropagation(); // don't select this row after clicking
+            const onClick = (e) => {
+              e.stopPropagation();
       
-              const api: GridApi = params.api;
-              const thisRow: Record<string, GridCellValue> = {};
-      
-              api
-                .getAllColumns()
-                .filter((c) => c.field !== '__check__' && !!c)
-                .forEach(
-                  (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
-                );
-      
-              return alert(JSON.stringify(thisRow, null, 4));
+              const id = params.id;
+              ReactDOM.createRoot(
+                document.getElementById('details-form')
+              ).render(<DetailFormDialog student={this.state.dataAPI[id-1]}/>);
             };
       
             return <Button onClick={onClick}><EditIcon /></Button>;
@@ -68,7 +61,8 @@ class Account extends React.Component {
               );
               if (response["status"] === 200) {
                 this.setState((state)=>({
-                  rows: [...state.rows.slice(0,id-1),...state.rows.slice(id)].map((e,i)=> ({id: i+1,SID: e.SID, FullName: e.FullName, Email: e.Email, Password: e.Password}))
+                  rows: [...state.rows.slice(0,id-1),...state.rows.slice(id)].map((e,i)=> ({id: i+1,SID: e.SID, FullName: e.FullName, Email: e.Email, IdentityNumber: e.IdentityNumber})),
+                  dataAPI: [...state.dataAPI.slice(0,id-1),...state.dataAPI.slice(id)]
                 }));
                 const user = await fetch(
                   `http://localhost:3001/auth/delete/${Email}`,
@@ -114,14 +108,15 @@ class Account extends React.Component {
             SID: obj["_doc"].SID,
             FullName: obj["_doc"].FullName,
             Email: obj["_doc"].Email,
-            Password: obj.Password,
+            IdentityNumber: obj["_doc"].IdentityNumber,
           })),
         }))
       );
   }
-  saveChange(row) {
+  saveChange(row,data) {
     this.setState((state) => ({
       rows: [...state.rows, row],
+      dataAPI: [...state.dataAPI,data]
     }));
   }
 
@@ -161,7 +156,8 @@ class Account extends React.Component {
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
-        <Container maxWidth="lg" sx={{ mt: 5 }}>
+        <Container
+          maxWidth="lg" sx={{ mt: 5 }}>
           <div style={{ height: 630, width: "100%" }}>
             <DataGrid
               disableSelectionOnClick
@@ -170,6 +166,7 @@ class Account extends React.Component {
               pageSize={10}
               rowsPerPageOptions={[10]}
             />
+            <div id='details-form'/>
             <FormDialog
               savechange={this.saveChange}
               Notify={this.Notify}

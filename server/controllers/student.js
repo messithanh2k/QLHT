@@ -3,19 +3,27 @@ import { StudentModel } from "../models/Student.js"
 export const getStudentList = async (req,res) => {
     StudentModel.find((err,data)=>{
         if (err) return console.error(err);
-        res.status(200).json(data.map(obj=> ({...obj,Password: '123456'})));
+        res.status(200).json(data.map(obj=> ({...obj})));
     });
 }
 
 
 export const createStudentAccount = async (req,res) => {
     var count = 0;
-    await StudentModel.countDocuments({}).then(d => count = d)
-    var s_count = count.toString();
-    while (s_count.length < 4) {
-        s_count = '0' + s_count;
+    await StudentModel.countDocuments({SchoolYear: req.body.SchoolYear}).then(d => count = d);
+    var s_max;
+    if (count === 0) {
+        s_max = '0001';
     }
-    const SID = 1955 + parseInt(req.body.SchoolYear) + s_count
+    else {
+        await StudentModel.find({SchoolYear: req.body.SchoolYear})
+                    .sort({SID: -1})
+                    .then(d => s_max = (Number(d[0].SID.slice(4))+1).toString());
+    }
+    while (s_max.length < 4) {
+        s_max = '0' + s_max;
+    }
+    const SID = 1955 + parseInt(req.body.SchoolYear) + s_max
     const Email =  SID.toString() + '@sis.hust.edu.vn';
     const student = new StudentModel({
         SID: SID.toString(),
@@ -33,7 +41,7 @@ export const createStudentAccount = async (req,res) => {
     await student.save((err,data)=>{
         if (err) res.status(400).json({success: false, message: "error found"});
         else {
-            res.status(201).json({success: true, message: "created in database",SID: data.SID, Email: data.Email, FullName: data.FullName});
+            res.status(201).json({success: true, message: "created in database",SID: data.SID, Email: data.Email, FullName: data.FullName, IdentityNumber: data.IdentityNumber});
             
         }
     });
