@@ -31,9 +31,20 @@ class Account extends React.Component {
               e.stopPropagation();
       
               const id = params.id;
+              const api: GridApi = params.api;
+              const SID = api.getCellValue(params.id,'SID');
+              const Email = api.getCellValue(params.id,'Email');
               ReactDOM.createRoot(
                 document.getElementById('details-form')
-              ).render(<DetailFormDialog student={this.state.dataAPI[id-1]}/>);
+              ).render(<DetailFormDialog 
+                          student={this.state.dataAPI[id-1]}
+                          Modify={this.Modify}
+                          SID = {SID}
+                          id = {id}
+                          Email = {Email}
+                          notify = {this.Notify}
+                        />);
+
             };
       
             return <Button onClick={onClick}><EditIcon /></Button>;
@@ -95,6 +106,7 @@ class Account extends React.Component {
     this.saveChange = this.saveChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.Notify = this.Notify.bind(this);
+    this.Modify = this.Modify.bind(this);
   }
 
   componentDidMount() {
@@ -117,6 +129,13 @@ class Account extends React.Component {
     this.setState((state) => ({
       rows: [...state.rows, row],
       dataAPI: [...state.dataAPI,data]
+    }));
+  }
+
+  Modify(id , row , data) {
+    this.setState((state) => ({
+      rows: [...state.rows.slice(0,id-1),row,...state.rows.slice(id)],
+      dataAPI: [...state.dataAPI.slice(0,id-1),data,...state.dataAPI.slice(id)]
     }));
   }
 

@@ -29,54 +29,52 @@ export default function DetailFormDialog(props) {
     },
   ];
 
- 
+  
   const handleClose = () => {
     setOpen(false);
   };
 
-//   const handleSave = async () => {
-//     const response = await fetch('http://localhost:3001/student/create', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({
-//         "FullName": FullName,
-//         "DateOfBirth": DateOfBirth,
-//         "SchoolYear": SchoolYear,
-//         "Class": Class,
-//         "Sex": Sex,
-//         "Major": Major,
-//         "Born": Born,DetailFormDialog
-//         "IdentityNumber": IdentityNumber,
-//         "PhoneNumber": PhoneNumber,
-//       })
-//     })
+  const handleModify = async () => {
+    const response = await fetch('http://localhost:3001/student/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "SID": props.SID,
+        "FullName": FullName,
+        "DateOfBirth": DateOfBirth,
+        "SchoolYear": SchoolYear,
+        "Class": Class,
+        "Sex": Sex,
+        "Major": Major,
+        "Born": Born,
+        "IdentityNumber": IdentityNumber,
+        "PhoneNumber": PhoneNumber,
+      })
+    })
 
-//     const data = await response.json()
-//     if (data['success']===true) {
-//       props.savechange({id: props.count + 1,SID: data.SID, FullName: data.FullName, Email: data.Email, Password: data.SID})
-//       const resgister = await fetch('http://localhost:3001/auth/register', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({
-//                 email: data.Email,
-//                 password: data.SID
-//             })
-//         });
-
-//       if (resgister) props.Notify("success","Create Student Sucessfully!");
-//       else {
-//         props.Notify("error", "Register Account Error!!!");
-//       }
-//     }
-//     else {
-//       props.Notify("error", "Create Student Error!!!");
-//     }
-//     setOpen(false);
-//   };
+    const data = await response.json()
+    if (data['success']===true) {
+      props.Modify(props.id,{id: props.id, SID: props.SID, FullName: FullName, Email: props.Email, IdentityNumber: IdentityNumber}
+        ,{
+        "FullName": FullName,
+        "DateOfBirth": DateOfBirth,
+        "SchoolYear": SchoolYear,
+        "Class": Class,
+        "Sex": Sex,
+        "Major": Major,
+        "Born": Born,
+        "IdentityNumber": IdentityNumber,
+        "PhoneNumber": PhoneNumber,
+      });
+      props.notify("success","Modify successfully!");
+    }
+    else {
+      props.notify("error"," error!!!");
+    }
+    setOpen(false);
+  };
 
   return (
     <div>
@@ -111,7 +109,6 @@ export default function DetailFormDialog(props) {
                 />
               </LocalizationProvider>
               <TextField
-                required
                 id="SchoolYear"
                 label="School Year  "
                 type="number"
@@ -119,8 +116,8 @@ export default function DetailFormDialog(props) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(event)=>{
-                  setSchoolYear(event.target.value)
+                InputProps={{
+                  readOnly: true,
                 }}
               />
               <TextField 
@@ -188,7 +185,7 @@ export default function DetailFormDialog(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Save</Button>
+          <Button onClick={handleModify}>Modify</Button>
         </DialogActions>
       </Dialog>
     </div>

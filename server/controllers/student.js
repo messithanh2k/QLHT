@@ -66,3 +66,8 @@ export const deleteStudent = async(req,res) => {
     else res.status(400).json({success: false, message: "error found"});
     
 }
+
+export const updateStudent = async(req,res) => {
+    await StudentModel.findOneAndUpdate({SID: req.body.SID},req.body)
+    res.status(200).json({success: true, message: "updated"});
+}
