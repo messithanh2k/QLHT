@@ -1,9 +1,32 @@
 import './Login.css';
-import { useState } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
-function Login() {
+const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+function Login(props) {
+    const navigate = useNavigate();
+
+    const role = props.role;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        setOpen(true);
+    }, []);
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     async function handleLogin(event) {
         event.preventDefault();
@@ -24,12 +47,18 @@ function Login() {
         console.log(data['success']);
         if (data['success'] === true) {
             localStorage.setItem('token', data['accessToken']);
+            navigate('/' + role + '/home');
         }
         ///////
     }
 
     return (
         <section className="vh-100">
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+                    You are loginning with role {role}!
+                </Alert>
+            </Snackbar>
             <div className="container-fluid h-custom">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-md-9 col-lg-6 col-xl-5">
@@ -86,7 +115,7 @@ function Login() {
                                     Forgot password?
                                 </a>
                             </div>
-                            <div className="text-center text-lg-start mt-4 pt-2">
+                            <div className="form-footer text-center text-lg-start mt-4 pt-2">
                                 <button
                                     type="submit"
                                     className="btn btn-primary btn-lg"
@@ -94,6 +123,8 @@ function Login() {
                                 >
                                     Login
                                 </button>
+                                {role === 'student' && <Link to="/lecturer/login"> Are you a lecturer?</Link>}
+                                {role === 'lecturer' && <Link to="/student/login"> Are you a student?</Link>}
                             </div>
                         </form>
                     </div>
