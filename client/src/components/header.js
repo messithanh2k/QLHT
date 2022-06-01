@@ -24,9 +24,11 @@ function Header(props) {
                 </div>
                 <div>
                     {role === '' && (
-                        <Button className={clsx(styles.loginButton)} variant="outlined">
-                            LOGIN
-                        </Button>
+                        <Link className={clsx(styles.loginLink)} to="/login">
+                            <Button className={clsx(styles.loginButton)} variant="outlined">
+                                LOGIN
+                            </Button>
+                        </Link>
                     )}
                 </div>
             </Box>
