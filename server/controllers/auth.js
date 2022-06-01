@@ -58,3 +58,14 @@ export const Login = async (req, res) => {
         return res.status(500).json({success: false, message: 'Internal server error'})
     }
 }
+
+export const Delete = async (req,res) => {
+    const email = req.params.email;
+    const user = await UserModel.findOneAndDelete({email: email});
+    if (user) {
+        res.status(200).json({success: true, message: `delete ${email}`});
+    }
+    else {
+        res.status(400).json({success: false, messaga: "error found"});
+    }
+}
