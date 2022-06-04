@@ -1,8 +1,15 @@
 import Login from './pages/Login'
-import Account from './Accounts/StudentsAccount';
+import Dashboard from './pages/Dashboard';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+// import Account from './Accounts/StudentsAccount';
 function App() {
   return (
-    <Account />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/" element={<Dashboard />}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,9 +1,11 @@
 import './Login.css'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Login(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const history = useNavigate()
 
     async function handleLogin(event){
         event.preventDefault()
@@ -24,6 +26,7 @@ function Login(){
         console.log(data['success'])
         if (data['success'] === true){
           localStorage.setItem('token', data['accessToken'])
+          history("/")
         }
         ///////
     }
