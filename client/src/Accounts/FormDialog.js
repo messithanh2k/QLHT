@@ -113,10 +113,9 @@ export default function FormDialog(props) {
         <DialogContent>
           <Box 
             component="form"
-            sx={{ "& .MuiTextField-root": { m: 1, width: "60ch" }, display: 'flex', flexWrap: 'wrap'}}
+            sx={{ "& .MuiTextField-root": { m: 1, width: "37ch" }, display: 'flex', flexWrap: 'wrap'}}
             noValidate
-            autoComplete="off"
-          >
+            autoComplete="off">
             <div>
               <TextField
                 required

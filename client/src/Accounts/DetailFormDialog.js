@@ -90,7 +90,7 @@ export default function DetailFormDialog(props) {
                 <DialogContent>
                     <Box
                         component="form"
-                        sx={{ '& .MuiTextField-root': { m: 1, width: '60ch' }, display: 'flex', flexWrap: 'wrap' }}
+                        sx={{ '& .MuiTextField-root': { m: 1, width: '37ch' }, display: 'flex', flexWrap: 'wrap' }}
                         noValidate
                         autoComplete="off"
                     >
