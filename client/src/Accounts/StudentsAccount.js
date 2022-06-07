@@ -16,6 +16,7 @@ import FormDialog from './FormDialog';
 import DetailFormDialog from './DetailFormDialog';
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
+import DropzoneDialog from './DropzoneDialog';
 
 class Account extends React.Component {
   constructor(props) {
@@ -220,6 +221,11 @@ class Account extends React.Component {
             />
             <div id="details-form" />
             <FormDialog
+              savechange={this.saveChange}
+              Notify={this.Notify}
+              count={this.state.rows.length}
+            />
+            <DropzoneDialog
               savechange={this.saveChange}
               Notify={this.Notify}
               count={this.state.rows.length}
