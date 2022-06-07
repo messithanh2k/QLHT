@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import {LocalizationProvider, DatePicker} from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { MenuItem,DialogTitle,DialogContent,DialogActions,Dialog,TextField,Button } from '@mui/material';
-
+import AddIcon from '@mui/icons-material/Add';
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -102,11 +102,12 @@ export default function FormDialog(props) {
   return (
     <div>
       <Button
-        variant="text"
+        variant="outlined"
         onClick={handleClickOpen}
         style={{ float: "right" }}
+        sx={{mt: 1}}
       >
-        Add Account
+        Add <AddIcon fontSize="small"/>
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle style={{textAlign: "center"}} sx={{margin: 2, fontSize: 30}}>New Student Account</DialogTitle>
