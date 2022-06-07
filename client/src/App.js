@@ -3,7 +3,7 @@ import Account from './Accounts/StudentsAccount';
 import Subject from './Subject/SubjectList'
 function App() {
   return (
-    <Subject />
+    <Account />
   );
 }
 
