@@ -4,6 +4,7 @@ import { DataGrid, GridApi } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SubjectDialog from './SubjectDialog';
+import DetailSubjectDialog from './DetailSubjectDialog'
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
@@ -15,11 +16,11 @@ class Subject extends React.Component {
         { field: 'id', headerName: 'Index', width: 70 },
         { field: 'SubID', headerName: 'SubID', width: 110 },
         { field: 'SubName', headerName: 'Sub Name', width: 250 },
-        { field: 'Day', headerName: 'Day', width: 270 },
-        { field: 'StartTime', headerName: 'Start', width: 110 },
-        { field: 'EndTime', headerName: 'End', width: 110 },
+        { field: 'Day', headerName: 'Day', width: 90 },
+        { field: 'StartTime', headerName: 'Start', width: 90 },
+        { field: 'EndTime', headerName: 'End', width: 90 },
         { field: 'Class', headerName: 'Classroom', width: 110 },
-        { field: 'MaxSV', headerName: 'MaxSV', width: 110 },
+        { field: 'MaxSV', headerName: 'MaxSV', width: 80 },
         {
           field: 'detail',
           headerName: 'Details',
@@ -30,8 +31,18 @@ class Subject extends React.Component {
       
               const id = params.id;
               const api: GridApi = params.api;
-              const SID = api.getCellValue(params.id,'SID');
-              const Email = api.getCellValue(params.id,'Email');
+              const SubID = api.getCellValue(params.id,'SubID');
+              const SubName = api.getCellValue(params.id,'SubName');
+              ReactDOM.createRoot(
+                document.getElementById('details-form')
+              ).render(<DetailSubjectDialog 
+                          subject={this.state.dataAPI[id-1]}
+                          Modify={this.Modify}
+                          SubID = {SubID}
+                          id = {id}
+                          SubName = {SubName}
+                          notify = {this.Notify}
+                        />);
 
             };
       
@@ -48,9 +59,9 @@ class Subject extends React.Component {
               
               const api: GridApi = params.api;
               const id = params.id;
-              const Email = api.getCellValue(params.id,'Email');
+              const SubID = api.getCellValue(params.id,'SubID');
               const response = await fetch(
-                `http://localhost:3001/student/${Email}`,
+                `http://localhost:3001/subject/delete/${SubID}`,
                 {
                   method: "DELETE",
                   headers: {
@@ -60,24 +71,12 @@ class Subject extends React.Component {
               );
               if (response["status"] === 200) {
                 this.setState((state)=>({
-                  rows: [...state.rows.slice(0,id-1),...state.rows.slice(id)].map((e,i)=> ({id: i+1,SID: e.SID, FullName: e.FullName, Email: e.Email, IdentityNumber: e.IdentityNumber})),
+                  rows: [...state.rows.slice(0,id-1),...state.rows.slice(id)].map((e,i)=> ({id: i+1,SubID: e.SubID, SubName: e.SubName, Day: e.Day, StartTime: e.StartTime, EndTime: e.EndTime, MaxSV: e.MaxSV, Class: e.Class})),
                   dataAPI: [...state.dataAPI.slice(0,id-1),...state.dataAPI.slice(id)]
                 }));
-                const user = await fetch(
-                  `http://localhost:3001/auth/delete/${Email}`,
-                  {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  }
-                );
-                if (user) this.Notify("success","Delete Success");
-                else {
-                  this.Notify("error","Delete Error");
-                }
-              } else {
+              }else {
                 this.Notify("error","Delete Error");
+                console.log("ko xoa dc");
               }
             };
             return <Button onClick={handleDelete}><DeleteIcon /></Button>;

@@ -28,23 +28,16 @@ export const createSubjectAccount = async (req,res) => {
     });
 }
 
-// export const createSubjectAccount = async (req,res) => {
-//     const subject = new SubjectModel({
-//         SubID: "a",
-//         SubName: "b",
-//         Day: "c",
-//         StartTime: 6,
-//         EndTime: 8,
-//         Class: "dd",
-//         MaxSV: 30,
-//     });
-//     await subject.save((err,data)=>{
-//         if (err) {res.status(400).json({success: false, message: "error found"});
-//                 console.log(subject);
-//     }
-//         else {
-//             res.status(201).json({success: true, message: "created in database",SubID: data.SubID, SubName: data.SubName});
-            
-//         }
-//     });
-// }
+export const deleteSubject = async(req,res) => {
+    const SubID = req.params.SubID;
+
+    const subject = await SubjectModel.findOneAndDelete({SubID: SubID});
+    if (subject) res.status(200).json({success: true, message: "Delete " + subject.SubID + " Successfully"});
+    else res.status(400).json({success: false, message: "error found"});
+    
+}
+
+export const updateSubject = async(req,res) => {
+    await SubjectModel.findOneAndUpdate({SubID: req.body.SubID},req.body)
+    res.status(200).json({success: true, message: "updated"});
+}

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Box } from '@mui/system';
-import {LocalizationProvider, DatePicker} from '@mui/x-date-pickers'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { MenuItem,DialogTitle,DialogContent,DialogActions,Dialog,TextField,Button } from '@mui/material';
+import { DialogTitle,DialogContent,DialogActions,Dialog,TextField,Button } from '@mui/material';
 
 
 export default function SubjectDialog(props) {
@@ -14,18 +12,7 @@ export default function SubjectDialog(props) {
   const [StartTime, setStartTime] = React.useState('');
   const [EndTime, setEndTime] = React.useState('');
   const [MaxSV, setMaxSV] = React.useState('');
-  
 
-  const options = [
-    {
-      value: 'Male',
-      label: 'Male',
-    },
-    {
-      value: 'Female',
-      label: 'Female',
-    },
-  ];
 
   const handleClickOpen = () => {
     setSubID('');
@@ -87,10 +74,10 @@ export default function SubjectDialog(props) {
         onClick={handleClickOpen}
         style={{ float: "right" }}
       >
-        Add Account
+        Add Subject
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle style={{textAlign: "center"}} sx={{margin: 2, fontSize: 30}}>New Student Account</DialogTitle>
+        <DialogTitle style={{textAlign: "center"}} sx={{margin: 2, fontSize: 30}}>New Subject</DialogTitle>
         <DialogContent>
           <Box 
             component="form"
