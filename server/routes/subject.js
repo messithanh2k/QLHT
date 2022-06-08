@@ -1,11 +1,11 @@
 import express from 'express'
 import {getStudent, getStudentList, createStudentAccount, deleteStudent, updateStudent} from '../controllers/student.js'
-import {getStudent, getStudentList, createStudentAccount, deleteStudent, updateStudent} from '../controllers/subject.js'
+import { getSubjectList,createSubjectAccount} from '../controllers/subject.js'
 const router = express.Router()
 
 router.get('/', getSubjectList)
 
-router.post('/create', createStudentAccount)
+router.post('/create', createSubjectAccount)
 
 router.get('/:IdentityNumber', getStudent)
 

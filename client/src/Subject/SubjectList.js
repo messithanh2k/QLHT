@@ -3,6 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { DataGrid, GridApi } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import SubjectDialog from './SubjectDialog';
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
@@ -12,14 +13,13 @@ class Subject extends React.Component {
     this.state = {
       columns: [
         { field: 'id', headerName: 'Index', width: 70 },
-        { field: 'SID', headerName: 'SID', width: 110 },
-        { field: 'FullName', headerName: 'Full Name', width: 250 },
-        { field: 'Email', headerName: 'Email', width: 270 },
-        {
-          field: 'IdentityNumber',
-          headerName: 'Identity Number',
-          width: 200,
-        },
+        { field: 'SubID', headerName: 'SubID', width: 110 },
+        { field: 'SubName', headerName: 'Sub Name', width: 250 },
+        { field: 'Day', headerName: 'Day', width: 270 },
+        { field: 'StartTime', headerName: 'Start', width: 110 },
+        { field: 'EndTime', headerName: 'End', width: 110 },
+        { field: 'Class', headerName: 'Classroom', width: 110 },
+        { field: 'MaxSV', headerName: 'MaxSV', width: 110 },
         {
           field: 'detail',
           headerName: 'Details',
@@ -98,17 +98,20 @@ class Subject extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3001/student")
+    fetch("http://localhost:3001/subject")
       .then((res) => res.json())
       .then((data) =>
         this.setState(() => ({
           dataAPI: data.map((obj) => obj["_doc"]),
           rows: data.map((obj, index) => ({
             id: index + 1,
-            SID: obj["_doc"].SID,
-            FullName: obj["_doc"].FullName,
-            Email: obj["_doc"].Email,
-            IdentityNumber: obj["_doc"].IdentityNumber,
+            SubID: obj["_doc"].SubID,
+            SubName: obj["_doc"].SubName,
+            Day: obj["_doc"].Day,
+            StartTime: obj["_doc"].StartTime,
+            EndTime: obj["_doc"].EndTime,
+            Class: obj["_doc"].Class,
+            MaxSV: obj["_doc"].MaxSV,
           })),
         }))
       );
@@ -174,7 +177,11 @@ class Subject extends React.Component {
               rowsPerPageOptions={[10]}
             />
             <div id='details-form'/>
-            
+            <SubjectDialog
+              savechange={this.saveChange}
+              Notify={this.Notify}
+              count = {this.state.rows.length}
+            />
           </div>
         </Container>
         <Snackbar

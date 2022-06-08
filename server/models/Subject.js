@@ -11,15 +11,15 @@ const subjectSchema = mongoose.Schema({
         required: true
     },
     Day: {
-        type: Date,
+        type: String,
         required: true
     },
     StartTime: {
-        type: Date,
+        type: Number,
         required: true,
     },
     EndTime: {
-        type: Date,
+        type: Number,
         required: true
     },
     Class: {
