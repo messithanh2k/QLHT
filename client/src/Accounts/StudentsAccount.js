@@ -138,10 +138,13 @@ class Account extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.Notify = this.Notify.bind(this);
     this.Modify = this.Modify.bind(this);
+    this.Upload = this.Upload.bind(this);
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/student')
+    fetch('http://localhost:3001/student',{
+      cache: 'no-cache'
+    })
       .then((res) => res.json())
       .then((data) =>
         this.setState(() => ({
@@ -156,6 +159,14 @@ class Account extends React.Component {
         }))
       );
   }
+
+  Upload(dataAPI , rows) {
+    this.setState(()=>({
+      dataAPI: dataAPI,
+      rows: rows
+    }));
+  }
+
   saveChange(row, data) {
     this.setState((state) => ({
       rows: [...state.rows, row],
@@ -229,6 +240,7 @@ class Account extends React.Component {
               savechange={this.saveChange}
               Notify={this.Notify}
               count={this.state.rows.length}
+              upload={this.Upload}
             />
           </div>
         </Container>
