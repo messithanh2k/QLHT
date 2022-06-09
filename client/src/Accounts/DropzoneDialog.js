@@ -54,7 +54,6 @@ export default function DropzoneDialog(props) {
         }
 
         setOpen(false);
-        // const new_data = {};
         await fetch('http://localhost:3001/student', {
             method: 'GET',
             cache: 'no-cache',
