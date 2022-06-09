@@ -111,6 +111,7 @@ class Subject extends React.Component {
             EndTime: obj["_doc"].EndTime,
             Class: obj["_doc"].Class,
             MaxSV: obj["_doc"].MaxSV,
+            Student: obj["_doc"].Student,
           })),
         }))
       );

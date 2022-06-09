@@ -14,11 +14,41 @@ export default function DetailSubjectDialog(props) {
   const [EndTime, setEndTime] = React.useState(props.subject.EndTime);
   const [Class, setClass] = React.useState(props.subject.Class);
   const [MaxSV, setMaxSV] = React.useState(props.subject.MaxSV);
+  const [Student, setStudent] = React.useState(props.subject.Student);
+  const StudentName = [];
 
-  
+  const getStudentName = async (e) => {// don't select this row after clicking
+    
+    const response = await fetch(
+      `http://localhost:3001/subject/getStudent/${e}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response["status"] === 200) {
+      const data = await response.json();
+
+      StudentName.push(data[0]['FullName']);
+    }else {
+      this.Notify("error","Delete Error");
+      console.log("ko xoa dc");
+    }
+  };
+
   const handleClose = () => {
+    console.log(Student);
+    console.log("Student");
     setOpen(false);
   };
+  const getStuName = () => {
+    Student.forEach(element => {
+      console.log(getStudentName(element))
+    });
+    };
+  
 
   const handleModify = async () => {
     const response = await fetch('http://localhost:3001/subject/update', {
@@ -34,12 +64,13 @@ export default function DetailSubjectDialog(props) {
         "StartTime": StartTime,
         "EndTime": EndTime,
         "MaxSV": MaxSV,
+        "Student": Student,
       })
     })
 
     const data = await response.json()
     if (data['success']===true) {
-      props.Modify(props.id,{id: props.id, SubID: SubID, SubName: SubName, Day: Day, Class: Class, StartTime: StartTime, EndTime: EndTime, MaxSV: MaxSV }
+      props.Modify(props.id,{id: props.id, SubID: SubID, SubName: SubName, Day: Day, Class: Class, StartTime: StartTime, EndTime: EndTime, MaxSV: MaxSV , Student: Student}
         ,{
         "SubID": SubID,
         "SubName": SubName,
@@ -48,6 +79,7 @@ export default function DetailSubjectDialog(props) {
         "StartTime": StartTime,
         "EndTime": EndTime,
         "MaxSV": MaxSV,
+        "Student": Student,
       });
       props.notify("success","Modify successfully!");
     }
@@ -56,9 +88,10 @@ export default function DetailSubjectDialog(props) {
     }
     setOpen(false);
   };
-
+  // getStudentName()
   return (
     <div>
+      {/* {getStudentName()} */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle style={{textAlign: "center"}} sx={{margin: 2, fontSize: 30}}>Subject Details</DialogTitle>
         <DialogContent>
@@ -131,6 +164,17 @@ export default function DetailSubjectDialog(props) {
                 setMaxSV(event.target.value)
               }}
               />
+              <TextField 
+              required 
+              id="Student" 
+              label="Student"
+              defaultValue={Student}
+              // onChange={(event)=>{
+              //   setMaxSV(event.target.value)
+              // }}
+              >
+                {/* {getStuName} */}
+              </TextField>
               
             </div>
           </Box>

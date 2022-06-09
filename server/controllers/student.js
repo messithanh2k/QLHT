@@ -71,3 +71,14 @@ export const updateStudent = async(req,res) => {
     await StudentModel.findOneAndUpdate({SID: req.body.SID},req.body)
     res.status(200).json({success: true, message: "updated"});
 }
+
+export const getStudentInSubject = async (req,res) => {
+    const StudentID = req.params.Student
+    const student = await StudentModel.find({SID: StudentID})
+    if (student) {
+        res.status(200).json(student);
+    }
+    else {
+        res.status(400).json({message: "error found"});
+    }
+}

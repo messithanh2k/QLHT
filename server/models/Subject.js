@@ -30,6 +30,10 @@ const subjectSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    Student: {
+        type: Array,
+        required: false
+    },
 });
 
 export const SubjectModel = mongoose.model('subjects', subjectSchema);
