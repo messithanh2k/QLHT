@@ -102,17 +102,6 @@ export const uploadFile = async (req, res) => {
 };
 
 export const getStudentInSubject = async (req,res) => {
-  const StudentID = req.params.Student
-  const student = await StudentModel.find({SID: StudentID})
-  if (student) {
-      res.status(200).json(student);
-  }
-  else {
-      res.status(400).json({message: "error found"});
-  }
-}
-
-export const getStudentInSubject = async (req,res) => {
     const StudentID = req.params.Student
     const student = await StudentModel.find({SID: StudentID})
     if (student) {
