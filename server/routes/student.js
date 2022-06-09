@@ -1,5 +1,8 @@
 import express from 'express'
-import {getStudent, getStudentList, createStudentAccount, deleteStudent, updateStudent} from '../controllers/student.js'
+import {getStudent, getStudentList, createStudentAccount, deleteStudent, updateStudent, uploadFile} from '../controllers/student.js'
+import multer from 'multer'
+
+const upload = multer({ dest: 'uploads/' })
 
 const router = express.Router()
 
@@ -13,4 +16,5 @@ router.delete('/:Email', deleteStudent)
 
 router.post('/update', updateStudent)
 
+router.post('/upload',upload.single("upfile"), uploadFile);
 export default router;
