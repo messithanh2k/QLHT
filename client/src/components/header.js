@@ -87,14 +87,17 @@ function Header(props) {
                     <Link to="/student/home" className={clsx(styles.headerTab)}>
                         TRANG CHỦ
                     </Link>
-                    <Link to="/" className={clsx(styles.headerTab)}>
-                        ĐỒ ÁN
+                    <Link to="/student/result" className={clsx(styles.headerTab)}>
+                        KẾT QUẢ HỌC TẬP
                     </Link>
-                    <Link to="/" className={clsx(styles.headerTab)}>
+                    <Link to="/student/timetable" className={clsx(styles.headerTab)}>
                         LỊCH HỌC
                     </Link>
-                    <Link to="/" className={clsx(styles.headerTab)}>
-                        NCKH
+                    <Link to="/student/registerclass" className={clsx(styles.headerTab)}>
+                        ĐĂNG KÝ HỌC TẬP
+                    </Link>
+                    <Link to="/student/eduprogram" className={clsx(styles.headerTab)}>
+                        CHƯƠNG TRÌNH ĐÀO TẠO
                     </Link>
                     <Link to="/" className={clsx(styles.headerTab)}>
                         BIỂU MẪU

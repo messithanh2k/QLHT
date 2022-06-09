@@ -25,7 +25,7 @@ Content-Type: application/json
     "FullName": "Nguyen van C",
     "DateOfBirth": "2000-12-12",
     "SchoolYear": 63,
-    "Class": ,
+    "Class": "sa",
     "Sex": "Male", 
     "Major": "IT1",
     "Born": "Luong son, hoa binh",
@@ -64,3 +64,27 @@ Content-Type: application/json
     "IdentityNumber": "114896488",
     "PhoneNumber": "151564856413"
 }
+###
+GET http://localhost:3001/subject/
+Content-Type: application/json
+
+###
+
+POST http://localhost:3001/subject/create
+Content-Type: application/json
+
+{
+    "SubID": "it03",
+    "SubName": "avav",
+    "Day": "bb",
+    "Class": "a" ,
+    "StartTime": 6, 
+    "EndTime": 10,
+    "MaxSV": 80
+}
+
+###
+
+
+GET http://localhost:3001/subject/getStudent/20180001
+Content-Type: application/json
