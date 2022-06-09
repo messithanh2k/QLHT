@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/home';
 import Account from './Accounts/StudentsAccount';
+<<<<<<< HEAD
 
 function App() {
     return (
@@ -19,6 +20,13 @@ function App() {
         // </Router>
         <Account />
     );
+=======
+import Subject from './Subject/SubjectList'
+function App() {
+  return (
+    <Subject />
+  );
+>>>>>>> Subject
 }
 
 export default App;

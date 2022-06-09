@@ -72,6 +72,7 @@ export const updateStudent = async(req,res) => {
     res.status(200).json({success: true, message: "updated"});
 }
 
+<<<<<<< HEAD
 function removeVietnameseTones(str) {
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
     str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
@@ -111,4 +112,15 @@ function getEmail(fullname, sid){
         }
     }
     return email + sid.slice(2) + '@sis.hust.edu.vn';   
+=======
+export const getStudentInSubject = async (req,res) => {
+    const StudentID = req.params.Student
+    const student = await StudentModel.find({SID: StudentID})
+    if (student) {
+        res.status(200).json(student);
+    }
+    else {
+        res.status(400).json({message: "error found"});
+    }
+>>>>>>> Subject
 }
