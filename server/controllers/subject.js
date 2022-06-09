@@ -41,3 +41,5 @@ export const updateSubject = async(req,res) => {
     await SubjectModel.findOneAndUpdate({SubID: req.body.SubID},req.body)
     res.status(200).json({success: true, message: "updated"});
 }
+
+

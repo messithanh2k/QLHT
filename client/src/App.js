@@ -2,14 +2,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/home';
 import Account from './Accounts/StudentsAccount';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+import Subject from './Subject/SubjectList'
 import Timetable from './pages/student/Timetable';
 import Result from './pages/student/Result';
 import RegisterClass from './pages/student/RegisterClass';
 import EduProgram from './pages/student/EduProgram';
->>>>>>> a0b337e8c685cc41b686c2136b2a9b531e2bc5c7
+//  a0b337e8c685cc41b686c2136b2a9b531e2bc5c7
 
 function App() {
     return (
@@ -23,6 +21,7 @@ function App() {
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
                 <Route path="/lecturer/login" element={<Login role="lecturer" />}></Route>
                 <Route path="/accounts" element={<Account />}></Route>
+                <Route path="/subjects" element={<Subject />}></Route>
                 <Route path="/student/timetable" element={<Home role="student"><Timetable></Timetable></Home>}></Route>
                 <Route path="/student/result" element={<Home role="student"><Result></Result></Home>}></Route>
                 <Route path="/student/registerclass" element={<Home role="student"><RegisterClass></RegisterClass></Home>}></Route>
@@ -31,13 +30,7 @@ function App() {
             </Routes>
         </Router>
     );
-=======
-import Subject from './Subject/SubjectList'
-function App() {
-  return (
-    <Subject />
-  );
->>>>>>> Subject
+
 }
 
 export default App;
