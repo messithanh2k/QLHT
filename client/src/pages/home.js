@@ -6,6 +6,7 @@ function Home(props) {
         <div>
             <Header role={role}></Header>
             <h1>{role}</h1>
+            <div>{ props.children }</div>
             <Footer></Footer>
         </div>
     );
