@@ -44,7 +44,6 @@ function Login(props) {
 
         const data = await response.json();
 
-        console.log(data['success']);
         if (data['success'] === true) {
             localStorage.setItem('token', data['accessToken']);
             navigate('/' + role + '/home');

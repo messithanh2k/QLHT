@@ -1,6 +1,7 @@
 import express from 'express'
 import {getStudent, getStudentList, createStudentAccount, deleteStudent, updateStudent, uploadFile} from '../controllers/student.js'
 import multer from 'multer'
+import { getClassDetail } from '../controllers/student/register_class.js'
 
 const upload = multer({ dest: 'uploads/' })
 
@@ -17,4 +18,7 @@ router.delete('/:Email', deleteStudent)
 router.post('/update', updateStudent)
 
 router.post('/upload',upload.single("upfile"), uploadFile);
+
+router.post('/getclassdetail', getClassDetail)
+
 export default router;
