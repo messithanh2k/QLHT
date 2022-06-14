@@ -88,3 +88,13 @@ Content-Type: application/json
 
 GET http://localhost:3001/subject/getStudent/20180001
 Content-Type: application/json
+
+###
+
+POST http://localhost:3001/student/getclassdetail
+Content-Type: application/json
+
+{
+    "SubID": "IT01"
+}
+
