@@ -7,7 +7,7 @@ export const getAuth = (req, res) => {
 }
 
 export const Register = async (req, res) => {
-    const {email, password} = req.body
+    const {email, password, role} = req.body
 
     // validation
     if (!email || !password) 
@@ -19,7 +19,8 @@ export const Register = async (req, res) => {
         const hashPassword = await argon2.hash(password)
         const newUser = new UserModel({
             email,
-            password: hashPassword
+            password: hashPassword,
+            role: role
         })
         await newUser.save()
 

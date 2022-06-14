@@ -18,7 +18,7 @@ import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import DropzoneDialog from './DropzoneDialog';
 
-class Account extends React.Component {
+class StudentAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -262,4 +262,4 @@ class Account extends React.Component {
   }
 }
 
-export default Account;
+export default StudentAccount;

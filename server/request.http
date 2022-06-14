@@ -29,7 +29,7 @@ Content-Type: application/json
     "Sex": "Male", 
     "Major": "IT1",
     "Born": "Luong son, hoa binh",
-    "IdentityNumber": "114896488",
+    "IdentityNumber": "17896488",
     "PhoneNumber": "151564856413"
 }
 
@@ -90,6 +90,23 @@ GET http://localhost:3001/subject/getStudent/20180001
 Content-Type: application/json
 
 ###
+GET http://localhost:3001/lecturer/
+Content-Type: application/json
+
+
+###
+
+POST http://localhost:3001/lecturer/create
+Content-Type: application/json
+
+{
+    "FullName": "Nguyễn Mạnh Thắng",
+    "DateOfBirth": "1988-12-12",
+    "Sex": "Male", 
+    "Born": "Luong son, hoa binh",
+    "IdentityNumber": "177896588",
+    "PhoneNumber": "151564856413"
+}
 
 POST http://localhost:3001/student/getclassdetail
 Content-Type: application/json
