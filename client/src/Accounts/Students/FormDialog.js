@@ -77,21 +77,7 @@ export default function FormDialog(props) {
         "IdentityNumber": IdentityNumber,
         "PhoneNumber": PhoneNumber,
       })
-      const resgister = await fetch('http://localhost:3001/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: data.Email,
-                password: data.SID
-            })
-        });
-
-      if (resgister) props.Notify("success","Create Student Sucessfully!");
-      else {
-        props.Notify("error", "Register Account Error!!!");
-      }
+      props.Notify("success","Create Student Sucessfully!");
     }
     else {
       props.Notify("error", "Create Student Error!!!");

@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
 
-const studentSchema = mongoose.Schema({
-    SID: {
-        type: String,
-        required: true,
-        unique: true
-    },
+const lecturerSchema = mongoose.Schema({
     FullName: {
         type: String, 
         required: true
@@ -19,19 +14,7 @@ const studentSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    SchoolYear: {
-        type: Number,
-        required: true
-    },
-    Class: {
-        type: String,
-        required: true
-    },
     Sex: {
-        type: String,
-        required: true
-    },
-    Major: {
         type: String,
         required: true
     },
@@ -50,4 +33,4 @@ const studentSchema = mongoose.Schema({
     }
 });
 
-export const StudentModel = mongoose.model('students', studentSchema);
+export const LecturerModel = mongoose.model('lecturers', lecturerSchema);
