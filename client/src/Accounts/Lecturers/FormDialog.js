@@ -9,7 +9,7 @@ export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [FullName, setFullName] = React.useState('');
   const [DateOfBirth, setDateOfBirth] = React.useState(new Date());
-  const [Sex, setSex] = React.useState('');
+  const [Gender, setGender] = React.useState('');
   const [Born, setBorn] = React.useState('');
   const [IdentityNumber, setIdentityNumber] = React.useState('');
   const [PhoneNumber, setPhoneNumber] = React.useState('');
@@ -28,7 +28,7 @@ export default function FormDialog(props) {
   const handleClickOpen = () => {
     setFullName('');
     setDateOfBirth(new Date());
-    setSex('');
+    setGender('');
     setBorn('');
     setIdentityNumber('');
     setPhoneNumber('');
@@ -48,7 +48,7 @@ export default function FormDialog(props) {
       body: JSON.stringify({
         "FullName": FullName,
         "DateOfBirth": DateOfBirth,
-        "Sex": Sex,
+        "Sex": Gender,
         "Born": Born,
         "IdentityNumber": IdentityNumber,
         "PhoneNumber": PhoneNumber,
@@ -59,6 +59,7 @@ export default function FormDialog(props) {
     if (data['success']===true) {
       props.savechange({id: props.count + 1, FullName: data.FullName, Email: data.Email, IdentityNumber: data.IdentityNumber},{
         "FullName": FullName,
+        "Sex": Gender,
         "DateOfBirth": DateOfBirth,
         "Born": Born,
         "IdentityNumber": IdentityNumber,
@@ -115,9 +116,9 @@ export default function FormDialog(props) {
                 id="Sex"
                 select
                 label="Gender"
-                value={Sex}
+                value={Gender}
                 onChange={(event)=> {
-                  setSex(event.target.value);
+                  setGender(event.target.value);
                 }}
               >
                 {options.map((option) => (

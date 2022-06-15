@@ -13,10 +13,10 @@ import {
   import DeleteIcon from '@mui/icons-material/Delete';
   import EditIcon from '@mui/icons-material/Edit';
   import FormDialog from './FormDialog';
-//   import DetailFormDialog from './DetailFormDialog';
+  import DetailFormDialog from './DetailFormDialog';
   import React from 'react';
   import * as ReactDOM from 'react-dom/client';
-//   import DropzoneDialog from './DropzoneDialog';
+  import DropzoneDialog from './DropzoneDialog';
   
   class LecturerAccount extends React.Component {
     constructor(props) {
@@ -45,14 +45,13 @@ import {
                 ReactDOM.createRoot(
                   document.getElementById('details-form')
                 ).render(
-                //   <DetailFormDialog
-                //     student={this.state.dataAPI[id - 1]}
-                //     Modify={this.Modify}
-                //     SID={SID}
-                //     id={id}
-                //     Email={Email}
-                //     notify={this.Notify}
-                //   />
+                  <DetailFormDialog
+                    lecturer={this.state.dataAPI[id - 1]}
+                    Modify={this.Modify}
+                    id={id}
+                    Email={Email}
+                    notify={this.Notify}
+                  />
                 );
               };
   
@@ -75,7 +74,7 @@ import {
                 const id = params.id;
                 const Email = api.getCellValue(params.id, 'Email');
                 const response = await fetch(
-                  `http://localhost:3001/student/${Email}`,
+                  `http://localhost:3001/lecturer/${Email}`,
                   {
                     method: 'DELETE',
                     headers: {
@@ -232,12 +231,12 @@ import {
                 Notify={this.Notify}
                 count={this.state.rows.length}
               />
-              {/* <DropzoneDialog
+              <DropzoneDialog
                 savechange={this.saveChange}
                 Notify={this.Notify}
                 count={this.state.rows.length}
                 upload={this.Upload}
-              /> */}
+              />
             </div>
           </Container>
           <Snackbar

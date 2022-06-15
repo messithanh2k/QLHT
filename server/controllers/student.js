@@ -41,7 +41,6 @@ export const createStudentAccount = async (req, res) => {
     IdentityNumber: req.body.IdentityNumber,
     PhoneNumber: req.body.PhoneNumber,
   });
-  let isInsert;
   await student.save((err, data) => {
     if (err) res.status(400).json({ success: false, message: "error found" });
     else {
@@ -64,10 +63,7 @@ export const createStudentAccount = async (req, res) => {
         });
       }
     }
-  });
-  console.log(isInsert);
-    
-  
+  });  
 };
 
 const register = async (email,password) => {
@@ -125,7 +121,6 @@ export const uploadFile = async (req, res) => {
     const success = await importExcelData2MongoDB(
       path.resolve() + "\\uploads\\" + req.file.filename
     );
-    console.log(success);
     if (success === true) {
       res.status(200).json({ success: true });
     } else {
@@ -184,7 +179,7 @@ function getEmail(fullname, sid) {
   if (split.length > 1) {
     email = removeVietnameseTones(split[split.length - 1]).toLowerCase() + ".";
     for (let i = 0; i < split.length - 1; i++) {
-      email += split[i][0].toLowerCase();
+      email += removeVietnameseTones(split[i][0].toLowerCase());
     }
   }
   return email + sid.slice(2) + "@sis.hust.edu.vn";
