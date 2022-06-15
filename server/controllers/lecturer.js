@@ -83,49 +83,37 @@ const register = async (email, password) => {
 //   }
 // };
 
-// export const deleteStudent = async (req, res) => {
-//   const Email = req.params.Email;
+export const deleteLecturer = async (req, res) => {
+  const Email = req.params.Email;
 
-//   const student = await StudentModel.findOneAndDelete({ Email: Email });
-//   if (student)
-//     res.status(200).json({
-//       success: true,
-//       message: "Delete " + student.Email + " Successfully",
-//     });
-//   else res.status(400).json({ success: false, message: "error found" });
-// };
+  const lecturer = await LecturerModel.findOneAndDelete({ Email: Email });
+  if (lecturer)
+    res.status(200).json({
+      success: true,
+      message: "Delete " + lecturer.Email + " Successfully",
+    });
+  else res.status(400).json({ success: false, message: "error found" });
+};
 
-// export const updateStudent = async (req, res) => {
-//   await StudentModel.findOneAndUpdate({ SID: req.body.SID }, req.body);
-//   res.status(200).json({ success: true, message: "updated" });
-// };
+export const updateLecturer = async (req, res) => {
+  await LecturerModel.findOneAndUpdate({ IdentityNumber: req.body.IdentityNumber }, req.body);
+  res.status(200).json({ success: true, message: "updated" });
+};
 
-// export const uploadFile = async (req, res) => {
-//   if (req.file) {
-//     const success =  await importExcelData2MongoDB(path.resolve() + "\\uploads\\" + req.file.filename);
-//     console.log(success)
-//     if (success === true) {
-//       res.status(200).json({ success: true });
-//     }
-//     else {
-//       res.status(400).json({ success: false });
-//     }
-//   }
-//   else {
-//     res.status(400).json({ success: false });
-//   }
-// };
-
-// export const getStudentInSubject = async (req,res) => {
-//     const StudentID = req.params.Student
-//     const student = await StudentModel.find({SID: StudentID})
-//     if (student) {
-//         res.status(200).json(student);
-//     }
-//     else {
-//         res.status(400).json({message: "error found"});
-//     }
-// }
+export const uploadFile = async (req, res) => {
+  if (req.file) {
+    const success =  await importExcelData2MongoDB(path.resolve() + "\\uploads\\" + req.file.filename);
+    if (success === true) {
+      res.status(200).json({ success: true });
+    }
+    else {
+      res.status(400).json({ success: false });
+    }
+  }
+  else {
+    res.status(400).json({ success: false });
+  }
+};
 
 function removeVietnameseTones(str) {
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -165,78 +153,72 @@ function getEmail(fullname) {
   if (split.length > 1) {
     email = removeVietnameseTones(split[split.length - 1]).toLowerCase();
     for (let i = 0; i < split.length - 1; i++) {
-      email += split[i][0].toLowerCase();
+      email += removeVietnameseTones(split[i][0].toLowerCase());
     }
   }
   return email + "@soict.hust.edu.vn";
 }
 
-// async function importExcelData2MongoDB(filePath) {
-//   // -> Read Excel File to Json Data
-//     const excelData =  excelToJson({
-//       sourceFile: filePath,
-//       sheets: [
-//         {
-//           // Excel Sheet Name
-//           name: "Sheet1",
-//           // Header Row -> be skipped and will not be present at our result object.
-//           header: {
-//             rows: 1,
-//           },
-//           // Mapping columns to keys
-//           columnToKey: {
-//             A: "FullName",
-//             B: "DateOfBirth",
-//             C: "SchoolYear",
-//             D: "Class",
-//             E: "Gender",
-//             F: "Major",
-//             G: "HomeTown",
-//             H: "IdentityNumber",
-//             I: "PhoneNumber",
-//           },
-//         },
-//       ],
-//     });
+async function importExcelData2MongoDB(filePath) {
+  // -> Read Excel File to Json Data
+    const excelData =  excelToJson({
+      sourceFile: filePath,
+      sheets: [
+        {
+          // Excel Sheet Name
+          name: "Sheet1",
+          // Header Row -> be skipped and will not be present at our result object.
+          header: {
+            rows: 1,
+          },
+          // Mapping columns to keys
+          columnToKey: {
+            A: "FullName",
+            B: "DateOfBirth",
+            C: "Gender",
+            D: "HomeTown",
+            E: "IdentityNumber",
+            F: "PhoneNumber",
+          },
+        },
+      ],
+    });
 
-//     if (excelData.Sheet1.length > 0) {
-//       if (isDate(excelData.Sheet1[0].DateOfBirth) === false || typeof(excelData.Sheet1[0].SchoolYear) !== 'number') {
-//         return false;
-//       }
-//       else {
-//         for (let i = 0; i < excelData.Sheet1.length; i++) {
-//           const response = await fetch("http://localhost:3001/student/create", {
-//             method: "POST",
-//             headers: {
-//               "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({
-//               FullName: excelData.Sheet1[i].FullName,
-//               DateOfBirth: excelData.Sheet1[i].DateOfBirth,
-//               SchoolYear: excelData.Sheet1[i].SchoolYear,
-//               Class: excelData.Sheet1[i].Class,
-//               Sex: excelData.Sheet1[i].Gender,
-//               Major: excelData.Sheet1[i].Major,
-//               Born: excelData.Sheet1[i].HomeTown,
-//               IdentityNumber: excelData.Sheet1[i].IdentityNumber,
-//               PhoneNumber: excelData.Sheet1[i].PhoneNumber,
-//             }),
-//           });
+    if (excelData.Sheet1.length > 0) {
+      if (isDate(excelData.Sheet1[0].DateOfBirth) === false) {
+        return false;
+      }
+      else {
+        for (let i = 0; i < excelData.Sheet1.length; i++) {
+          const response = await fetch("http://localhost:3001/lecturer/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              FullName: excelData.Sheet1[i].FullName,
+              DateOfBirth: excelData.Sheet1[i].DateOfBirth,
+              Sex: excelData.Sheet1[i].Gender,
+              Born: excelData.Sheet1[i].HomeTown,
+              IdentityNumber: excelData.Sheet1[i].IdentityNumber,
+              PhoneNumber: excelData.Sheet1[i].PhoneNumber,
+            }),
+          });
 
-//           if (response["success"] === false) {
-//             return false;
-//           }
-//         }
+          if (response["success"] === false) {
+            return false;
+          }
+        }
 
-//         return true;
-//       }
-//     }
-//     else
-//     {
-//       return false;
-//     }
-// }
+        return true;
+      }
+    }
+    else
+    {
+      return false;
+    }
+}
 
-// const isDate = (date) => {
-//   return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
-// }
+const isDate = (date) => {
+  return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
+}
