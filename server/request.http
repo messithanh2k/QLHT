@@ -114,6 +114,6 @@ POST http://localhost:3001/student/getclassdetail
 Content-Type: application/json
 
 {
-    "SubID": "IT01"
+    "SubID": "b"
 }
 
