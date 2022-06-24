@@ -14,13 +14,10 @@ class Subject extends React.Component {
     this.state = {
       columns: [
         { field: 'id', headerName: 'Index', width: 70 },
-        { field: 'SubID', headerName: 'SubID', width: 110 },
-        { field: 'SubName', headerName: 'Sub Name', width: 250 },
-        { field: 'Day', headerName: 'Day', width: 90 },
-        { field: 'StartTime', headerName: 'Start', width: 90 },
-        { field: 'EndTime', headerName: 'End', width: 90 },
-        { field: 'Class', headerName: 'Classroom', width: 110 },
-        { field: 'MaxSV', headerName: 'MaxSV', width: 80 },
+        { field: 'SubID', headerName: 'SubID', width: 130 },
+        { field: 'SubName', headerName: 'Sub Name', width: 280 },
+        { field: 'Department', headerName: 'Department', width: 320 },
+        { field: 'Credit', headerName: 'Credit', width: 100 },
         {
           field: 'detail',
           headerName: 'Details',
@@ -71,7 +68,7 @@ class Subject extends React.Component {
               );
               if (response["status"] === 200) {
                 this.setState((state)=>({
-                  rows: [...state.rows.slice(0,id-1),...state.rows.slice(id)].map((e,i)=> ({id: i+1,SubID: e.SubID, SubName: e.SubName, Day: e.Day, StartTime: e.StartTime, EndTime: e.EndTime, MaxSV: e.MaxSV, Class: e.Class})),
+                  rows: [...state.rows.slice(0,id-1),...state.rows.slice(id)].map((e,i)=> ({id: i+1,SubID: e.SubID, SubName: e.SubName, Credit: e.Credit, Department: e.Department})),
                   dataAPI: [...state.dataAPI.slice(0,id-1),...state.dataAPI.slice(id)]
                 }));
               }else {
@@ -106,15 +103,12 @@ class Subject extends React.Component {
             id: index + 1,
             SubID: obj["_doc"].SubID,
             SubName: obj["_doc"].SubName,
-            Day: obj["_doc"].Day,
-            StartTime: obj["_doc"].StartTime,
-            EndTime: obj["_doc"].EndTime,
-            Class: obj["_doc"].Class,
-            MaxSV: obj["_doc"].MaxSV,
-            Student: obj["_doc"].Student,
+            Department: obj["_doc"].Department,
+            Credit: obj["_doc"].Credit,
           })),
         }))
       );
+     
   }
   saveChange(row,data) {
     this.setState((state) => ({

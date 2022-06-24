@@ -14,17 +14,18 @@ class Classs extends React.Component {
     this.state = {
       columns: [
         { field: 'id', headerName: 'Index', width: 70 },
-        { field: 'ClassID', headerName: 'ClassID', width: 250 },
+        { field: 'ClassID', headerName: 'ClassID', width: 110 },
         { field: 'SubID', headerName: 'SubID', width: 110 },
-        { field: 'LecID', headerName: 'LecID', width: 250 },
-        { field: 'Day', headerName: 'Day', width: 90 },
+        { field: 'LecID', headerName: 'LecID', width: 170 },
+        { field: 'Day', headerName: 'Day', width: 110 },
         { field: 'StartTime', headerName: 'Start', width: 90 },
         { field: 'EndTime', headerName: 'End', width: 90 },
-        { field: 'Room', headerName: 'Classroom', width: 110 },
-        { field: 'MaxSV', headerName: 'MaxSV', width: 80 },
+        { field: 'Room', headerName: 'Classroom', width: 100 },
+        { field: 'MaxSV', headerName: 'MaxSV', width: 90 },
         {
           field: 'detail',
           headerName: 'Details',
+          width: 80,
           sortable: false,
           renderCell: (params) => {
             const onClick = (e) => {
@@ -53,6 +54,7 @@ class Classs extends React.Component {
         {
           field: 'delete',
           headerName: 'Delete',
+          width: 80,
           sortable: false,
           renderCell: (params) => {
             const handleDelete = async (e) => {
