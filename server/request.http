@@ -12,8 +12,9 @@ POST  http://localhost:3001/auth/login
 Content-Type: application/json
 
 {
-    "email": "messithanh2k@gmail.com",
-    "password": "messithanh"
+    "email": "20180001@sis.hust.edu.vn",
+    "password": "20180001",
+    "role": "student"
 }
 
 ###

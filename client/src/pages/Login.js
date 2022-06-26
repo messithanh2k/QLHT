@@ -15,6 +15,7 @@ function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [open, setOpen] = useState(false);
+    const [error, setError] = useState("")
 
     useEffect(() => {
         setOpen(true);
@@ -39,14 +40,18 @@ function Login(props) {
             body: JSON.stringify({
                 email,
                 password,
+                role
             }),
         });
 
         const data = await response.json();
-
+ 
         if (data['success'] === true) {
             localStorage.setItem('token', data['accessToken']);
             navigate('/' + role + '/home');
+        }
+        else {
+            setError(data["message"])
         }
         ///////
     }
@@ -97,6 +102,7 @@ function Login(props) {
                                     placeholder="Enter password"
                                 />
                             </div>
+                            {error && <p style={{color : "red"}}>{error}</p>}
                             <div className="d-flex justify-content-between align-items-center">
                                 {/* Checkbox */}
                                 <div className="form-check mb-0">
