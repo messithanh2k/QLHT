@@ -18,6 +18,16 @@ Content-Type: application/json
 }
 
 ###
+POST  http://localhost:3001/auth/register
+Content-Type: application/json
+
+{
+    "email": "nhathai.nguyen@sis.hust.edu.vn",
+    "password": "nhathai123",
+    "role": "lecture"
+}
+
+###
 
 POST http://localhost:3001/student/create
 Content-Type: application/json
