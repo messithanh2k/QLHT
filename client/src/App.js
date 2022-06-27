@@ -3,7 +3,8 @@ import Login from './pages/Login';
 import Home from './pages/home';
 import StudentAccount from './Accounts/Students/StudentsAccount';
 import LecturerAccount from './Accounts/Lecturers/LecturerAccount';
-import LecturerHome from './pages/lectureHome';
+import LecturerHome from './pages/lecturerHome';
+import LecturerInformation from './pages/lecturerInformation';
 import Subject from './Subject/SubjectList';
 import Classs from './Class/ClassList';
 import Timetable from './pages/student/Timetable';
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/student/login" element={<Login role="student" />}></Route>
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
                 <Route path="/lecturer/login" element={<Login role="lecturer" />}></Route>
+                <Route path="/lecturer/information" element={<LecturerInformation />}></Route>
                 <Route path="/accounts/students" element={<StudentAccount />}></Route>
                 <Route path="/accounts/lecturers" element={<LecturerAccount />}></Route>
                 <Route path="/subjects" element={<Subject />}></Route>

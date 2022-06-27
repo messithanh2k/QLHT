@@ -1,0 +1,132 @@
+.row {
+    width: 100%;
+}
+.hide {
+    display: none;
+}
+.registerContainer {
+    font-size: 18px;
+    display: flex;
+    min-height: 700px;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerContainer.success {
+    background-color: #fff;
+}
+
+.registerForm {
+    width: 100%;
+    padding: 40px;
+    margin: 40px;
+    display: flex;
+    border: solid #ccc 2px;
+    border-radius: 6px;
+    background-color: #fff;
+    // justify-content: center;
+    align-items: center;
+}
+
+.formTitle {
+    margin-bottom: 12px;
+}
+
+.formTitle .title {
+    font-size: 2em;
+}
+
+.formLeft {
+    width: 75%;
+}
+.formRow {
+    display: flex;
+    justify-content: space-between;
+}
+.formField {
+    width: 30%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    input:focus-visible {
+        outline-color: var(--primary);
+    }
+}
+
+/* Style inputs, select elements and textareas */
+.formInput {
+    font-size: 1em;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* Style the label to display next to the inputs */
+.formLabel {
+    padding: 12px 12px 12px 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.formFooter {
+    display: flex;
+    align-items: baseline;
+    justify-content: right;
+}
+
+.formGender {
+    justify-content: space-around;
+    align-items: center;
+}
+.genderSelection {
+    padding-left: 8px;
+}
+.genderSelection.checked {
+    color: var(--primary) !important;
+    font-weight: bold;
+}
+
+.avatarInput {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imgContainer {
+    position: relative;
+    width: 100%;
+    border: solid #ccc 1px;
+    border-radius: 4px;
+}
+
+.btn {
+    float: right;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    border: none;
+    /* Remove borders */
+    border-radius: 4px;
+    /* Add a text color */
+    padding: 12px 28px;
+    /* Add some padding */
+    cursor: pointer;
+    /* Add a pointer cursor on mouse-over */
+}
+
+.btn.primary {
+    background-color: #fff;
+    color: var(--primary);
+    outline: 2px solid var(--primary);
+}
+
+/* Blue */
+.btn.primary:hover {
+    color: white;
+    background-color: var(--primary);
+}

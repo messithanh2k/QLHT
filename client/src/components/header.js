@@ -35,6 +35,11 @@ function Header() {
         setAnchorEl(null);
         navigate('/');
     };
+
+    const handleClickInfo = () => {
+        setAnchorEl(null);
+        navigate(`/${role}/information`);
+    };
     return (
         <div className={clsx(styles.headerContainer)}>
             <Box className={clsx(styles.headerTop)}>
@@ -75,7 +80,7 @@ function Header() {
                                     'aria-labelledby': 'basic-button',
                                 }}
                             >
-                                <MenuItem onClick={handleClose}>Thông tin cá nhân</MenuItem>
+                                <MenuItem onClick={handleClickInfo}>Thông tin cá nhân</MenuItem>
                                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
                             </Menu>
                         </div>

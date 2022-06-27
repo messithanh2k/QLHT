@@ -1,13 +1,17 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
+
+import TokenService from '../service/TokenService';
+import RoleService from '../service/RoleService';
+
+import clsx from 'clsx';
+import styles from './CSS/LecturerInformation.module.scss';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
-import HomeCard from '../components/homeCard';
-import TokenService from '../service/TokenService';
-import RoleService from '../service/RoleService';
-import { Navigate } from 'react-router-dom';
+import UserInformation from '../components/userInformation';
 
-function LecturerHome() {
+function LecturerInformation() {
     const accessToken = TokenService.getLocalAccessToken();
     const role = RoleService.getLocalRole();
 
@@ -21,15 +25,12 @@ function LecturerHome() {
     return (
         <div>
             <Header />
-
-            <HomeCard
-                title="Hồ sơ giảng viên"
-                icon="profile"
-                description="Các thông tin cá nhân, địa chỉ, số điện thoại liên lạc của giảng viên"
-            ></HomeCard>
+            <div className={clsx(styles.pageContent)}>
+                <UserInformation user={{}} />
+            </div>
             <Footer />
         </div>
     );
 }
 
-export default LecturerHome;
+export default LecturerInformation;
