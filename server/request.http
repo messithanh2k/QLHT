@@ -123,7 +123,17 @@ POST http://localhost:3001/student/getclassdetail
 Content-Type: application/json
 
 {
-    "SubID": "b"
+    "ClassID": "b"
+}
+
+###
+
+POST http://localhost:3001/student/registerclass
+Content-Type: application/json
+
+{
+    "SID": "20183633",
+    "classes": [123, 234]
 }
 
 ###
