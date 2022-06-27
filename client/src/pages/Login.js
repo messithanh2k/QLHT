@@ -5,6 +5,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import TokenService from '../service/TokenService';
 import RoleService from '../service/RoleService';
+import GmailService from '../service/GmailService';
 
 const Alert = forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -51,6 +52,7 @@ function Login(props) {
         if (data['success'] === true) {
             TokenService.setLocalAccessToken(data['accessToken']);
             RoleService.setLocalRole(role);
+            GmailService.setLocalGmail(email);
             navigate('/' + role + '/home');
         } else {
             setError(data['message']);
