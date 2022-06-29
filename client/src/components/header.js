@@ -28,7 +28,7 @@ function Header() {
     };
 
     const handleLogout = () => {
-        TokenService.removeLocalAccessToken();
+        TokenService.removeLocalAccessToken(RoleService.getLocalRole());
         RoleService.removeLocalRole();
         setAccessToken(TokenService.getLocalAccessToken());
         setRole(RoleService.getLocalRole());

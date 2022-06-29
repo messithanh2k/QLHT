@@ -2,7 +2,6 @@ import { UserModel } from '../models/User.js';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 import { httpStatus, apiStatus } from '../constants/index.js';
-import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
 
 export const getAuth = (req, res) => {
