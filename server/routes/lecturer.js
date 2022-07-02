@@ -1,21 +1,30 @@
-import express from 'express'
-import {getLecturerList , createLecturerAccount, deleteLecturer, updateLecturer, uploadFile} from '../controllers/lecturer.js'
-import multer from 'multer'
+import express from 'express';
+import {
+  getLecturerList,
+  createLecturerAccount,
+  deleteLecturer,
+  updateLecturer,
+  uploadFile,
+  getLecturerByEmail,
+} from '../controllers/lecturer.js';
+import multer from 'multer';
 
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'uploads/' });
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', getLecturerList)
+router.get('/', getLecturerList);
 
-router.post('/create', createLecturerAccount)
+router.post('/create', createLecturerAccount);
 
 // router.get('/:IdentityNumber', getStudent)
 
-router.delete('/:Email', deleteLecturer)
+router.delete('/:Email', deleteLecturer);
 
-router.post('/update', updateLecturer)
+router.post('/update', updateLecturer);
 
-router.post('/upload',upload.single("upfile"), uploadFile);
+router.post('/upload', upload.single('upfile'), uploadFile);
+
+router.post('/profile', getLecturerByEmail);
 
 export default router;
