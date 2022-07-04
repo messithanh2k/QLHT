@@ -6,6 +6,7 @@ import auth from './routes/auth.js'
 import student from './routes/student.js'
 import subject from './routes/subject.js'
 import lecturer from './routes/lecturer.js'
+import classs from './routes/classs.js'
 import mongoose from 'mongoose'
 
 
@@ -40,3 +41,5 @@ app.use('/student', student)
 app.use('/subject', subject)
 
 app.use('/lecturer',lecturer)
+
+app.use('/class',classs)

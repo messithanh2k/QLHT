@@ -12,8 +12,19 @@ POST  http://localhost:3001/auth/login
 Content-Type: application/json
 
 {
-    "email": "messithanh2k@gmail.com",
-    "password": "messithanh"
+    "email": "20180001@sis.hust.edu.vn",
+    "password": "20180001",
+    "role": "student"
+}
+
+###
+POST  http://localhost:3001/auth/register
+Content-Type: application/json
+
+{
+    "email": "nhathai.nguyen@sis.hust.edu.vn",
+    "password": "nhathai123",
+    "role": "lecture"
 }
 
 ###
@@ -74,13 +85,11 @@ POST http://localhost:3001/subject/create
 Content-Type: application/json
 
 {
-    "SubID": "it03",
+    "SubID": "it033",
     "SubName": "avav",
-    "Day": "bb",
-    "Class": "a" ,
-    "StartTime": 6, 
-    "EndTime": 10,
-    "MaxSV": 80
+    "Department": "bb",
+    "Credit": 2
+  
 }
 
 ###
@@ -114,6 +123,31 @@ POST http://localhost:3001/student/getclassdetail
 Content-Type: application/json
 
 {
-    "SubID": "IT01"
+    "ClassID": "b"
 }
 
+###
+
+POST http://localhost:3001/student/registerclass
+Content-Type: application/json
+
+{
+    "SID": "20183633",
+    "classes": [123, 234]
+}
+
+###
+
+POST http://localhost:3001/class/create
+Content-Type: application/json
+
+{
+    "ClassID": "it01",
+    "SubID": "it012",
+    "LecID": "DoBaLam",
+    "Day": "monday",
+    "Room": "D307" ,
+    "StartTime": 6, 
+    "EndTime": 10,
+    "MaxSV": 80
+}

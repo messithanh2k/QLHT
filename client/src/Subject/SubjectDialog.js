@@ -7,21 +7,15 @@ export default function SubjectDialog(props) {
   const [open, setOpen] = React.useState(false);
   const [SubID, setSubID] = React.useState('');
   const [SubName, setSubName] = React.useState('');
-  const [Day, setDay] = React.useState('');
-  const [Class, setClass] = React.useState('');
-  const [StartTime, setStartTime] = React.useState('');
-  const [EndTime, setEndTime] = React.useState('');
-  const [MaxSV, setMaxSV] = React.useState('');
+  const [Department, setDepartment] = React.useState('');
+  const [Credit, setCredit] = React.useState('');
 
 
   const handleClickOpen = () => {
     setSubID('');
     setSubName('');
-    setDay(63);
-    setClass('');
-    setStartTime('');
-    setEndTime('');
-    setMaxSV('');
+    setDepartment('');
+    setCredit('');
     setOpen(true);
   };
 
@@ -38,24 +32,18 @@ export default function SubjectDialog(props) {
       body: JSON.stringify({
         "SubID": SubID,
         "SubName": SubName,
-        "Day": Day,
-        "Class": Class,
-        "StartTime": StartTime,
-        "EndTime": EndTime,
-        "MaxSV": MaxSV,
+        "Department": Department,
+        "Credit": Credit,
       })
     })
 
     const data = await response.json()
     if (data['success']===true) {
-      props.savechange({id: props.count + 1,SubID: data.SubID, SubName: data.SubName, Day: data.Day, StartTime: data.StartTime,EndTime: data.EndTime, Class: data.Class, MaxSV: data.MaxSV},{
+      props.savechange({id: props.count + 1,SubID: data.SubID, SubName: data.SubName, Department: data.Department, Credit: data.Credit},{
         "SubID": SubID,
         "SubName": SubName,
-        "Day": Day,
-        "Class": Class,
-        "StartTime": StartTime,
-        "EndTime": EndTime,
-        "MaxSV": MaxSV,
+        "Department": Department,
+        "Credit": Credit,
       })
      
 
@@ -104,47 +92,19 @@ export default function SubjectDialog(props) {
               />
               <TextField
                 required
-                id="Day"
-                label="Day"
+                id="Department"
+                label="Department"
                 onChange={(event)=>{
-                  setDay(event.target.value)
+                  setDepartment(event.target.value)
                 }}
               />
               <TextField 
               required 
-              id="Class" 
-              label="Class"
+              id="Credit" 
+              label="Credit"
               onChange={(event)=>{
-                setClass(event.target.value)
+                setCredit(event.target.value)
               }}
-              />
-              <TextField
-                id="StartTime"
-                label="StartTime"
-                type="number"
-                onChange={(event)=> {
-                  setStartTime(event.target.value);
-                }}
-              >
-            
-              </TextField>
-              <TextField
-                required
-                id="EndTime"
-                label="EndTime"
-                type="number"
-                onChange={(event)=>{
-                  setEndTime(event.target.value)
-                }}
-              />
-              <TextField
-                required
-                id="MaxSV"
-                label="MaxSV"
-                type = "number"
-                onChange={(event)=>{
-                  setMaxSV(event.target.value)
-                }}
               />
               
             

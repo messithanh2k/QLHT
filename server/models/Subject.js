@@ -10,29 +10,13 @@ const subjectSchema = mongoose.Schema({
         type: String, 
         required: true
     },
-    Day: {
+    Department: {
         type: String,
         required: true
     },
-    StartTime: {
+    Credit: {
         type: Number,
         required: true,
-    },
-    EndTime: {
-        type: Number,
-        required: true
-    },
-    Class: {
-        type: String,
-        required: true
-    },
-    MaxSV: {
-        type: Number,
-        required: true
-    },
-    Student: {
-        type: Array,
-        required: false
     },
 });
 

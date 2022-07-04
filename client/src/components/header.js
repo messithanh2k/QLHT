@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './CSS/HeaderCSS.module.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TokenService from '../service/TokenService';
+import RoleService from '../service/RoleService';
 import avatarSample from '../assets/images/avatar_sample.jpg';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
@@ -12,8 +14,11 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-function Header(props) {
+function Header() {
+    const [accessToken, setAccessToken] = useState(TokenService.getLocalAccessToken());
+    const [role, setRole] = useState(RoleService.getLocalRole());
     const [anchorEl, setAnchorEl] = useState(null);
+    const navigate = useNavigate();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -21,7 +26,15 @@ function Header(props) {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const role = props.role;
+
+    const handleLogout = () => {
+        TokenService.removeLocalAccessToken();
+        RoleService.removeLocalRole();
+        setAccessToken(TokenService.getLocalAccessToken());
+        setRole(RoleService.getLocalRole());
+        setAnchorEl(null);
+        navigate('/');
+    };
     return (
         <div className={clsx(styles.headerContainer)}>
             <Box className={clsx(styles.headerTop)}>
@@ -35,7 +48,7 @@ function Header(props) {
                     </div>
                 </div>
                 <div>
-                    {role === '' && (
+                    {!accessToken && (
                         <Link className={clsx(styles.loginLink)} to="/student/login">
                             <Button className={clsx(styles.loginButton)} variant="outlined">
                                 LOGIN
@@ -43,7 +56,7 @@ function Header(props) {
                         </Link>
                     )}
 
-                    {role !== '' && (
+                    {accessToken && (
                         <div>
                             <Avatar
                                 alt="avatar"
@@ -63,13 +76,13 @@ function Header(props) {
                                 }}
                             >
                                 <MenuItem onClick={handleClose}>Thông tin cá nhân</MenuItem>
-                                <MenuItem onClick={handleClose}>Đăng xuất</MenuItem>
+                                <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
                             </Menu>
                         </div>
                     )}
                 </div>
             </Box>
-            {role === '' && (
+            {!role && (
                 <Box className={clsx(styles.headerBottom)}>
                     <Link to="/lecturer/login" className={clsx(styles.headerTab)}>
                         GIẢNG VIÊN

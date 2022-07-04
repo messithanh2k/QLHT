@@ -1,35 +1,17 @@
 import mongoose from "mongoose";
 
 const CourseSchema = mongoose.Schema({
-    type: {
-        type: String, 
-        required: true,
-    },
-    id: {
-        type: String, 
+    SID: {
+        type: String,
         required: true,
         unique: true
     },
-    name: {
-        type: String,
-        required: true
-    },
-    term: {
-        type: Number,
-        required: true
-    },
-    credit: {
-        type: Number,
-        required: true
-    },
-    complete: {
-        type: Number,
-        required: true
-    },
-    Mark: {
-        type: String,
-        required: true
-    }
+    Classes: [
+        {
+            ClassID: String,
+            Score: {type: Number, default: -1}
+        }
+    ]
 });
 
-export const CourseModel = mongoose.model('Courses', CourseSchema);
+export const CourseModel = mongoose.model('courses', CourseSchema);

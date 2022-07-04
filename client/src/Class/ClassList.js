@@ -3,24 +3,29 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { DataGrid, GridApi } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import SubjectDialog from './SubjectDialog';
-import DetailSubjectDialog from './DetailSubjectDialog'
+import ClassDialog from './ClassDialog';
+import ClassDetail from './ClassDetail'
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 
-class Subject extends React.Component {
+class Classs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       columns: [
         { field: 'id', headerName: 'Index', width: 70 },
-        { field: 'SubID', headerName: 'SubID', width: 130 },
-        { field: 'SubName', headerName: 'Sub Name', width: 280 },
-        { field: 'Department', headerName: 'Department', width: 320 },
-        { field: 'Credit', headerName: 'Credit', width: 100 },
+        { field: 'ClassID', headerName: 'ClassID', width: 110 },
+        { field: 'SubID', headerName: 'SubID', width: 110 },
+        { field: 'LecID', headerName: 'LecID', width: 170 },
+        { field: 'Day', headerName: 'Day', width: 110 },
+        { field: 'StartTime', headerName: 'Start', width: 90 },
+        { field: 'EndTime', headerName: 'End', width: 90 },
+        { field: 'Room', headerName: 'Classroom', width: 100 },
+        { field: 'MaxSV', headerName: 'MaxSV', width: 90 },
         {
           field: 'detail',
           headerName: 'Details',
+          width: 80,
           sortable: false,
           renderCell: (params) => {
             const onClick = (e) => {
@@ -28,16 +33,16 @@ class Subject extends React.Component {
       
               const id = params.id;
               const api: GridApi = params.api;
-              const SubID = api.getCellValue(params.id,'SubID');
-              const SubName = api.getCellValue(params.id,'SubName');
+              const ClassID = api.getCellValue(params.id,'ClassID');
+            //   const SubID = api.getCellValue(params.id,'SubID');
               ReactDOM.createRoot(
                 document.getElementById('details-form')
-              ).render(<DetailSubjectDialog 
-                          subject={this.state.dataAPI[id-1]}
+              ).render(<ClassDetail 
+                          classs={this.state.dataAPI[id-1]}
                           Modify={this.Modify}
-                          SubID = {SubID}
+                          ClassID = {ClassID}
                           id = {id}
-                          SubName = {SubName}
+                        //   SubName = {SubName}
                           notify = {this.Notify}
                         />);
 
@@ -49,6 +54,7 @@ class Subject extends React.Component {
         {
           field: 'delete',
           headerName: 'Delete',
+          width: 80,
           sortable: false,
           renderCell: (params) => {
             const handleDelete = async (e) => {
@@ -56,9 +62,9 @@ class Subject extends React.Component {
               
               const api: GridApi = params.api;
               const id = params.id;
-              const SubID = api.getCellValue(params.id,'SubID');
+              const ClassID = api.getCellValue(params.id,'ClassID');
               const response = await fetch(
-                `http://localhost:3001/subject/delete/${SubID}`,
+                `http://localhost:3001/class/delete/${ClassID}`,
                 {
                   method: "DELETE",
                   headers: {
@@ -68,7 +74,7 @@ class Subject extends React.Component {
               );
               if (response["status"] === 200) {
                 this.setState((state)=>({
-                  rows: [...state.rows.slice(0,id-1),...state.rows.slice(id)].map((e,i)=> ({id: i+1,SubID: e.SubID, SubName: e.SubName, Credit: e.Credit, Department: e.Department})),
+                  rows: [...state.rows.slice(0,id-1),...state.rows.slice(id)].map((e,i)=> ({id: i+1,ClassID: e.ClassID,SubID: e.SubID, LecID: e.LecID, Day: e.Day, StartTime: e.StartTime, EndTime: e.EndTime, MaxSV: e.MaxSV, Room: e.Room})),
                   dataAPI: [...state.dataAPI.slice(0,id-1),...state.dataAPI.slice(id)]
                 }));
               }else {
@@ -94,21 +100,25 @@ class Subject extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3001/subject")
+    fetch("http://localhost:3001/class")
       .then((res) => res.json())
       .then((data) =>
         this.setState(() => ({
           dataAPI: data.map((obj) => obj["_doc"]),
           rows: data.map((obj, index) => ({
             id: index + 1,
+            ClassID: obj["_doc"].ClassID,
             SubID: obj["_doc"].SubID,
-            SubName: obj["_doc"].SubName,
-            Department: obj["_doc"].Department,
-            Credit: obj["_doc"].Credit,
+            LecID: obj["_doc"].LecID,
+            Day: obj["_doc"].Day,
+            StartTime: obj["_doc"].StartTime,
+            EndTime: obj["_doc"].EndTime,
+            Room: obj["_doc"].Room,
+            MaxSV: obj["_doc"].MaxSV,
+            Student: obj["_doc"].Student,
           })),
         }))
       );
-     
   }
   saveChange(row,data) {
     this.setState((state) => ({
@@ -171,7 +181,7 @@ class Subject extends React.Component {
               rowsPerPageOptions={[10]}
             />
             <div id='details-form'/>
-            <SubjectDialog
+            <ClassDialog
               savechange={this.saveChange}
               Notify={this.Notify}
               count = {this.state.rows.length}
@@ -196,4 +206,4 @@ class Subject extends React.Component {
   }
 }
 
-export default Subject;
+export default Classs;

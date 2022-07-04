@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Button } from '@mui/material';
 
-let classes = []
+const classes = []
 
 function RegisterClass(){
     const [hp, setHp] = useState('')
@@ -9,32 +10,50 @@ function RegisterClass(){
 
     async function handleSubmit(event){
         event.preventDefault()
-
-        if (hps.includes(hp)){
-            setError('Mã học phần trùng lặp')
+        
+        if (hp === ''){
+            setError("Chưa nhập mã học phần")
         }
-        else{
-            const response = await fetch('http://localhost:3001/student/getclassdetail', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    "SubID": hp
-                }),
-            })
-    
-            const data = await response.json()
-    
-            classes.push(data['sub'])
-            setHps(prev => [...prev, hp])
-            setError('')
-
+        else {
+            if (hps.includes(hp)){
+                setError('Mã học phần trùng lặp')
+            }
+            else{
+                const response = await fetch('http://localhost:3001/student/getclassdetail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "SubID": hp
+                    }),
+                })
+        
+                const data = await response.json()
+                if (data.success === true){
+                    classes.push(data['sub'])
+                    setHps(prev => [...prev, hp])
+                    setError('')
+                }
+                else {
+                    setError("Không tìm thấy mã học phần")
+                }
+            }
         }
+        
 
         setHp('')
         
         
+    }
+
+    function handleDelete(event, index){
+        classes.splice(index, 1)
+        setHps(prev => prev.splice(index, 1))
+    }
+
+    async function handleSubmitRegister(event){
+
     }
 
 
@@ -59,7 +78,7 @@ function RegisterClass(){
                         <th>Giờ kết thúc</th>
                         <th>Phòng học</th>
                         <th>Số lượng sinh viên</th>
-                        <td><input type="checkbox" name="name" />&nbsp;</td>
+                        <td>&nbsp;</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,11 +91,14 @@ function RegisterClass(){
                                 <td>{classs.EndTime}</td>
                                 <td>{classs.Class}</td>
                                 <td>{classs.MaxSV}</td>
-                                <td><input type="checkbox" name="name" />&nbsp;</td>
+                                <td><Button onClick={(event)=>handleDelete(event, index)}>Delete</Button></td>
                             </tr>
                         ))}
                     </tbody>
                  </table>
+                 <div class="col text-center">
+                    <button className="btn-sm" onClick={handleSubmitRegister}>Gửi đăng ký</button>
+                </div>
             </div>
 
 

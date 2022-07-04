@@ -34,7 +34,7 @@ export const Register = async (req, res) => {
 }
 
 export const Login = async (req, res) => {
-    const {email, password} = req.body
+    const {email, password, role} = req.body
 
     // validation
     if (!email || !password) 
@@ -50,6 +50,8 @@ export const Login = async (req, res) => {
         if (!passwordValid)
             return res.status(400).json({success: false, message: 'incorrect password'})
 
+        if (role != user.role)
+            return res.status(400).json({success: false, message: `not found ${role} account `})
         //return token
         const accessToken = jwt.sign({userId: user._id}, 'messithanh2k')
         return res.json({success: true, message: "Login succesfully", accessToken})

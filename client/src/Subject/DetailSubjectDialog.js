@@ -9,45 +9,13 @@ export default function DetailSubjectDialog(props) {
       
   const [SubID, setSubID] = React.useState(props.subject.SubID);
   const [SubName, setSubName] = React.useState(props.subject.SubName);
-  const [Day, setDay] = React.useState(props.subject.Day);
-  const [StartTime, setStartTime] = React.useState(props.subject.StartTime);
-  const [EndTime, setEndTime] = React.useState(props.subject.EndTime);
-  const [Class, setClass] = React.useState(props.subject.Class);
-  const [MaxSV, setMaxSV] = React.useState(props.subject.MaxSV);
-  const [Student, setStudent] = React.useState(props.subject.Student);
-  const StudentName = [];
+  const [Department, setDepartment] = React.useState(props.subject.Department);
+  const [Credit, setCredit] = React.useState(props.subject.Credit);
 
-  const getStudentName = async (e) => {// don't select this row after clicking
-    
-    const response = await fetch(
-      `http://localhost:3001/subject/getStudent/${e}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (response["status"] === 200) {
-      const data = await response.json();
-
-      StudentName.push(data[0]['FullName']);
-    }else {
-      this.Notify("error","Delete Error");
-      console.log("ko xoa dc");
-    }
-  };
-
+ 
   const handleClose = () => {
-    console.log(Student);
-    console.log("Student");
     setOpen(false);
   };
-  const getStuName = () => {
-    Student.forEach(element => {
-      console.log(getStudentName(element))
-    });
-    };
   
 
   const handleModify = async () => {
@@ -59,27 +27,19 @@ export default function DetailSubjectDialog(props) {
       body: JSON.stringify({
         "SubID": SubID,
         "SubName": SubName,
-        "Day": Day,
-        "Class": Class,
-        "StartTime": StartTime,
-        "EndTime": EndTime,
-        "MaxSV": MaxSV,
-        "Student": Student,
+        "Department": Department,
+        "Credit": Credit,
       })
     })
 
     const data = await response.json()
     if (data['success']===true) {
-      props.Modify(props.id,{id: props.id, SubID: SubID, SubName: SubName, Day: Day, Class: Class, StartTime: StartTime, EndTime: EndTime, MaxSV: MaxSV , Student: Student}
+      props.Modify(props.id,{id: props.id, SubID: SubID, SubName: SubName, Department: Department, Credit: Credit}
         ,{
         "SubID": SubID,
         "SubName": SubName,
-        "Day": Day,
-        "Class": Class,
-        "StartTime": StartTime,
-        "EndTime": EndTime,
-        "MaxSV": MaxSV,
-        "Student": Student,
+        "Credit": Credit,
+        "Department": Department,
       });
       props.notify("success","Modify successfully!");
     }
@@ -88,10 +48,8 @@ export default function DetailSubjectDialog(props) {
     }
     setOpen(false);
   };
-  // getStudentName()
   return (
     <div>
-      {/* {getStudentName()} */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle style={{textAlign: "center"}} sx={{margin: 2, fontSize: 30}}>Subject Details</DialogTitle>
         <DialogContent>
@@ -121,60 +79,22 @@ export default function DetailSubjectDialog(props) {
               />
               <TextField 
               required 
-              id="Class" 
-              label="Class"
-              defaultValue={Class}
+              id="Department" 
+              label="Department"
+              defaultValue={Department}
               onChange={(event)=>{
-                setClass(event.target.value)
+                setDepartment(event.target.value)
               }}
               />
               <TextField 
               required 
-              id="Day" 
-              label="Day"
-              defaultValue={Day}
+              id="Credit" 
+              label="Credit"
+              defaultValue={Credit}
               onChange={(event)=>{
-                setDay(event.target.value)
+                setCredit(event.target.value)
               }}
               />
-              <TextField 
-              required 
-              id="StartTime" 
-              label="StartTime"
-              defaultValue={StartTime}
-              onChange={(event)=>{
-                setStartTime(event.target.value)
-              }}
-              />
-              <TextField 
-              required 
-              id="EndTime" 
-              label="EndTime"
-              defaultValue={EndTime}
-              onChange={(event)=>{
-                setEndTime(event.target.value)
-              }}
-              />
-              <TextField 
-              required 
-              id="MaxSV" 
-              label="MaxSV"
-              defaultValue={MaxSV}
-              onChange={(event)=>{
-                setMaxSV(event.target.value)
-              }}
-              />
-              <TextField 
-              required 
-              id="Student" 
-              label="Student"
-              defaultValue={Student}
-              // onChange={(event)=>{
-              //   setMaxSV(event.target.value)
-              // }}
-              >
-                {/* {getStuName} */}
-              </TextField>
               
             </div>
           </Box>
