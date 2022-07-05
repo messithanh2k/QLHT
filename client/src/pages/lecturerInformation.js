@@ -18,10 +18,22 @@ function LecturerInformation() {
     const email = GmailService.getLocalGmail();
     const [user, setUser] = useState({});
 
-    const handleUpdate = async (phone, password, avatarUrl) => {
-        console.log(password, phone, email);
-
-        return true;
+    const handleUpdate = async (email, phone, password, avatarImg) => {
+        axios
+            .post('http://localhost:3001/lecturer/update-profile', {
+                email: email,
+                PhoneNumber: phone,
+                password: password,
+                avatarUrl: avatarImg,
+            })
+            .then((res) => {
+                console.log(res.data);
+                return res.data.message;
+            })
+            .catch((err) => {
+                console.log(err);
+                return err.message;
+            });
     };
 
     useEffect(() => {
@@ -30,6 +42,7 @@ function LecturerInformation() {
             .then((res) => {
                 // console.log(res);
                 const data = res.data.data;
+                console.log(res.data.data);
                 const lec = {
                     avatarImg: data.avatarUrl,
                     fullName: data.FullName,

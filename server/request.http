@@ -101,11 +101,19 @@ Content-Type: application/json
     "DateOfBirth": "1989-01-01",
     "Sex": "Male",
     "Born": "Hà Nội",
-    "IdentityNumber": "187900111",
+    "IdentityNumber": " ",
     "PhoneNumber": "0330000000"
 }
 ###
+POST  http://localhost:3001/lecturer/update-profile
+Content-Type: application/json
 
+{
+    "email": "hainn@soict.hust.edu.vn",
+    "PhoneNumber": "0330000000",
+    "password": "12345678"
+}
+###
 GET http://localhost:3001/subject/getStudent/20180001
 Content-Type: application/json
 

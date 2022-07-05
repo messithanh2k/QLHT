@@ -22,7 +22,8 @@ function UserInformation(props) {
     const role = RoleService.getLocalRole();
     const accessToken = TokenService.getLocalAccessToken();
     const user = props.user;
-    // console.log(user);
+    console.log(user);
+    console.log(user.phone);
     const [avatarImg, setAvatarImg] = useState(user.avatarImg || defautlAvatar);
     const sid = user.SID;
     const fullName = user.fullName;
@@ -35,10 +36,11 @@ function UserInformation(props) {
     const born = user.born;
     const identityNumber = user.identityNumber;
     const [phone, setPhone] = useState(user.phone);
+    console.log(phone);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errMsg, setErrMsg] = useState({
-        type: 'info',
+        type: 'success',
         message: '',
     });
 
@@ -70,14 +72,17 @@ function UserInformation(props) {
         }
 
         if (errMsg.message === '') {
-            try {
-                props.onUpdate(phone, password, avatarImg);
-                setSuccess(true);
-            } catch (err) {
-                setErrMsg({ type: 'error', message: err });
-                //console.log(err);
-                setOpen(true);
-            }
+            props
+                .onUpdate(email, phone, password, avatarImg)
+                .then(() => {
+                    setErrMsg({ type: 'success', message: 'Cập nhật thành công' });
+                    setSuccess(true);
+                })
+                .catch((err) => {
+                    setErrMsg({ type: 'error', message: err });
+                    //console.log(err);
+                    setOpen(true);
+                });
         }
     };
 
@@ -95,9 +100,9 @@ function UserInformation(props) {
         }
     }, [success]);
 
-    useEffect(() => {
-        setPhone(user.phone);
-    }, []);
+    // useEffect(() => {
+    //     setPhone(user.phone);
+    // }, []);
 
     return (
         <div className={clsx(styles.registerContainer, styles.row)}>
@@ -183,6 +188,7 @@ function UserInformation(props) {
                                         name="phone"
                                         type="text"
                                         value={phone}
+                                        defaultValue={user.phone}
                                         pattern="[0-9]*"
                                         onChange={(e) => {
                                             setPhone((v) =>

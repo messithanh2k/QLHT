@@ -4,6 +4,7 @@ import path from 'path';
 import excelToJson from 'convert-excel-to-json';
 import fetch from 'node-fetch';
 import LecturerService from '../services/lecturer.service.js';
+import UserService from '../services/user.service.js';
 import { httpStatus } from '../constants/httpStatus.js';
 import { apiStatus } from '../constants/apiStatus.js';
 
@@ -256,19 +257,38 @@ export const findOneAndUpdate = async (req, res) => {
   //console.log(req.body);
   try {
     let lecturerEmail = req.body.email;
-    let lecturerAvatar = req.avatarUrl;
-    let lecturerFind = await LecturerService.findLecturerByEmail(lecturerEmail);
+    let lecturerAvatar = req.body.avatarUrl ? req.body.avatarUrl : undefined;
+    let lecturerPassword = req.body.password ? req.body.password : undefined;
+    let lecturerPhoneNumber = req.body.phoneNumber
+      ? req.body.phoneNumber
+      : undefined;
+    let lecturerRequest = {};
+    let userRequest = {};
 
-    if (lecturerFind == null) {
-      return res.status(httpStatus.NOT_FOUND).json({
-        status: apiStatus.INVALID_PARAM,
-        message: 'Lecturer not found',
-      });
+    if (lecturerAvatar) {
+      lecturerRequest.avatarUrl = lecturerAvatar;
     }
+    if (lecturerPhoneNumber) {
+      lecturerRequest.lecturerPhoneNumber = lecturerPhoneNumber;
+    }
+    let userUpdate = {};
+    if (lecturerPassword) {
+      console.log(lecturerPassword);
+      userUpdate = await UserService.updatePassword(
+        lecturerEmail,
+        lecturerPassword
+      );
+    }
+
+    let lecturerUpdate = await LecturerService.updateLecturer(
+      lecturerEmail,
+      lecturerRequest
+    );
+
     return res.status(httpStatus.OK).json({
       status: apiStatus.SUCCESS,
-      message: 'get lecture successfully',
-      data: lecturerFind,
+      message: 'update lecture successfully',
+      data: { ...lecturerUpdate, ...userUpdate },
     });
   } catch (e) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
