@@ -6,6 +6,7 @@ import GmailService from "../../service/GmailService";
 function RegisterClass(){
     const [hp, setHp] = useState('')
     const [hps, setHps] = useState([])
+    const [maHps, setMaHps] = useState([])
     const [classes, setClasses] = useState([])
     const [error, setError] = useState('')
 
@@ -13,11 +14,11 @@ function RegisterClass(){
         event.preventDefault()
         
         if (hp === ''){
-            setError("Chưa nhập mã học phần")
+            setError("Chưa nhập mã lớp đăng kí")
         }
         else {
             if (hps.includes(hp)){
-                setError('Mã học phần trùng lặp')
+                setError('Mã lớp trùng lặp')
             }
             else{
                 const response = await fetch('http://localhost:3001/student/getclassdetail', {
@@ -32,9 +33,16 @@ function RegisterClass(){
         
                 const data = await response.json()
                 if (data.success === true){
-                    setHps(prev => [...prev, hp])
-                    setClasses(prev => [...prev, data["classs"]])
-                    setError('')
+                    if (maHps.includes(data["classs"].SubID)){
+                        setError("trùng mã học phần")
+                    }
+                    else{
+                        setHps(prev => [...prev, hp])
+                        setMaHps(prev => [...prev, data["classs"].SubID])
+                        setClasses(prev => [...prev, data["classs"]])
+                        setError('')
+                    }
+
                 }
                 else {
                     setError("Không tìm thấy mã lớp")
@@ -51,6 +59,7 @@ function RegisterClass(){
         event.preventDefault()
         setClasses(classes.filter((item, idx) => idx !== index))
         setHps(hps.filter((item, idx) => idx !== index))
+        setMaHps(maHps.filter((item, idx) => idx !== index))
     }
 
     async function handleSubmitRegister(event){
