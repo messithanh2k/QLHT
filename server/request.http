@@ -123,7 +123,7 @@ POST http://localhost:3001/student/getclassdetail
 Content-Type: application/json
 
 {
-    "ClassID": "b"
+    "ClassID": "12784"
 }
 
 ###
@@ -132,8 +132,8 @@ POST http://localhost:3001/student/registerclass
 Content-Type: application/json
 
 {
-    "SID": "20183633",
-    "classes": [123, 234]
+    "email": "trung.vh180003@sis.hust.edu.vn",
+    "classes": [12784, 12785]
 }
 
 ###
