@@ -28,12 +28,17 @@ function Header() {
     };
 
     const handleLogout = () => {
-        TokenService.removeLocalAccessToken();
+        TokenService.removeLocalAccessToken(RoleService.getLocalRole());
         RoleService.removeLocalRole();
         setAccessToken(TokenService.getLocalAccessToken());
         setRole(RoleService.getLocalRole());
         setAnchorEl(null);
         navigate('/');
+    };
+
+    const handleClickInfo = () => {
+        setAnchorEl(null);
+        navigate(`/${role}/information`);
     };
     return (
         <div className={clsx(styles.headerContainer)}>
@@ -75,7 +80,7 @@ function Header() {
                                     'aria-labelledby': 'basic-button',
                                 }}
                             >
-                                <MenuItem onClick={handleClose}>Thông tin cá nhân</MenuItem>
+                                <MenuItem onClick={handleClickInfo}>Thông tin cá nhân</MenuItem>
                                 <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
                             </Menu>
                         </div>
