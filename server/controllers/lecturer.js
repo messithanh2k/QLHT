@@ -251,3 +251,29 @@ export const getLecturerByEmail = async (req, res) => {
     });
   }
 };
+
+export const findOneAndUpdate = async (req, res) => {
+  //console.log(req.body);
+  try {
+    let lecturerEmail = req.body.email;
+    let lecturerAvatar = req.avatarUrl;
+    let lecturerFind = await LecturerService.findLecturerByEmail(lecturerEmail);
+
+    if (lecturerFind == null) {
+      return res.status(httpStatus.NOT_FOUND).json({
+        status: apiStatus.INVALID_PARAM,
+        message: 'Lecturer not found',
+      });
+    }
+    return res.status(httpStatus.OK).json({
+      status: apiStatus.SUCCESS,
+      message: 'get lecture successfully',
+      data: lecturerFind,
+    });
+  } catch (e) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: apiStatus.OTHER_ERROR,
+      message: e.message,
+    });
+  }
+};

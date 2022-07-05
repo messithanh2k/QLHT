@@ -1,13 +1,13 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import TokenService from '../service/TokenService';
 import RoleService from '../service/RoleService';
 import GmailService from '../service/GmailService';
 import clsx from 'clsx';
 import styles from './CSS/LecturerInformation.module.scss';
-
+import axios from 'axios';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import UserInformation from '../components/userInformation';
@@ -15,24 +15,36 @@ import UserInformation from '../components/userInformation';
 function LecturerInformation() {
     const accessToken = TokenService.getLocalAccessToken();
     const role = RoleService.getLocalRole();
+    const email = GmailService.getLocalGmail();
+    const [user, setUser] = useState({});
+
+    const handleUpdate = async (phone, password, avatarUrl) => {
+        console.log(password, phone, email);
+
+        return true;
+    };
 
     useEffect(() => {
-        try {
-            const res = fetch('http://localhost:3001/lecturer/profile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: GmailService.getLocalGmail(),
-                }),
+        axios
+            .post('http://localhost:3001/lecturer/profile', { email: email })
+            .then((res) => {
+                // console.log(res);
+                const data = res.data.data;
+                const lec = {
+                    avatarImg: data.avatarUrl,
+                    fullName: data.FullName,
+                    email: data.Email,
+                    gender: data.Sex,
+                    born: data.Born,
+                    identityNumber: data.IdentityNumber,
+                    birthday: data.DateOfBirth,
+                    phone: data.PhoneNumber,
+                };
+                setUser(lec);
+            })
+            .catch((err) => {
+                console.log(err);
             });
-            res.then((response) => {
-                console.log(response);
-            });
-        } catch (err) {
-            console.log(err);
-        }
     }, []);
 
     if (!accessToken) {
@@ -46,7 +58,7 @@ function LecturerInformation() {
         <div>
             <Header />
             <div className={clsx(styles.pageContent)}>
-                <UserInformation user={{}} />
+                <UserInformation user={user} onUpdate={handleUpdate} />
             </div>
             <Footer />
         </div>

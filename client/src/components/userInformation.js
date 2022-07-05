@@ -2,6 +2,7 @@ import React, { useEffect, useState, memo } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import { Link, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
+import { format } from 'date-fns';
 import styles from './CSS/UserInformationCSS.module.scss';
 
 import Snackbar from '@mui/material/Snackbar';
@@ -21,19 +22,19 @@ function UserInformation(props) {
     const role = RoleService.getLocalRole();
     const accessToken = TokenService.getLocalAccessToken();
     const user = props.user;
+    // console.log(user);
     const [avatarImg, setAvatarImg] = useState(user.avatarImg || defautlAvatar);
     const sid = user.SID;
-    const [fullName, setFullName] = useState(user.fullName);
+    const fullName = user.fullName;
     const email = user.email;
-    const [gender, setGender] = useState(user.sex);
-    const [birthday, setBirthday] = useState(user.dateOfBirth);
+    const gender = user.gender;
+    const birthday = user.birthday;
     const schoolYear = user.schoolYear;
     const classs = user.classs;
     const major = user.major;
-    const [born, setBorn] = useState(user.born);
-    const [identityNumber, setIdentityNumber] = useState(user.identityNumber);
-    const [phone, setPhone] = useState(user.PhoneNumber);
-
+    const born = user.born;
+    const identityNumber = user.identityNumber;
+    const [phone, setPhone] = useState(user.phone);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errMsg, setErrMsg] = useState({
@@ -45,7 +46,7 @@ function UserInformation(props) {
 
     const [success, setSuccess] = useState(false);
 
-    //console.log(avatarImg);
+    console.log(avatarImg);
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -59,52 +60,18 @@ function UserInformation(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!password && !password) {
+        if (password && confirmPassword) {
             if (password !== confirmPassword) {
-                setErrMsg('Mật khẩu không khớp!');
+                setErrMsg({ type: 'error', message: 'Mật khẩu không khớp!' });
             }
             if (password.length < 6) {
-                setErrMsg('Mật khẩu phải chứa ít nhất 6 kí tự!');
+                setErrMsg({ type: 'error', message: 'Mật khẩu phải chứa ít nhất 6 kí tự!' });
             }
         }
 
         if (errMsg.message === '') {
-            // //console.log(avatarImg);
-            // let data = {};
-            // // console.log('submit');
-            // const bday = new Date(birthday);
-            // if (role === 'customer') {
-            //     data = {
-            //         email: email,
-            //         fullName: fullName,
-            //         lastName: lastName,
-            //         phoneNumber: phone,
-            //         gender: gender,
-            //         dateOfBirth: bday,
-            //         address: address,
-            //         password: password,
-            //         avatarUrl: avatarImg,
-            //     };
-            // } else {
-            //     const iday = new Date(ngayCap);
-            //     data = {
-            //         email: email,
-            //         fullName: fullName,
-            //         lastName: lastName,
-            //         phoneNumber: phone,
-            //         gender: gender,
-            //         dateOfBirth: bday,
-            //         address: address,
-            //         password: password,
-            //         avatarUrl: avatarImg,
-            //         cccd: cmnd,
-            //         issueDate: iday,
-            //         issuePlace: noiCap,
-            //     };
-            // }
-            // //console.log(data);
             try {
-                //callback funtion
+                props.onUpdate(phone, password, avatarImg);
                 setSuccess(true);
             } catch (err) {
                 setErrMsg({ type: 'error', message: err });
@@ -124,8 +91,13 @@ function UserInformation(props) {
         if (success === true) {
             setErrMsg({ type: 'success', message: 'Cập nhật thành công.' });
             setOpen(true);
+            setErrMsg({ type: '', message: '' });
         }
     }, [success]);
+
+    useEffect(() => {
+        setPhone(user.phone);
+    }, []);
 
     return (
         <div className={clsx(styles.registerContainer, styles.row)}>
@@ -167,11 +139,9 @@ function UserInformation(props) {
                                         id="fullName"
                                         name="fullName"
                                         value={fullName}
-                                        onChange={(e) => setFullName(e.target.value)}
                                         type="text"
                                         className={clsx(styles.formInput, styles.row)}
-                                        placeholder="Họ và tên..."
-                                        required
+                                        disabled
                                     />
                                 </div>
 
@@ -198,13 +168,7 @@ function UserInformation(props) {
                                         value={identityNumber}
                                         className={clsx(styles.formInput, styles.row)}
                                         type="text"
-                                        pattern="[0-9]*"
-                                        onChange={(e) => {
-                                            setIdentityNumber((v) =>
-                                                e.target.validity.valid || e.target.value === '' ? e.target.value : v,
-                                            );
-                                        }}
-                                        placeholder="Số CMND/CCCD..."
+                                        disabled
                                     />
                                 </div>
                             </div>
@@ -239,24 +203,22 @@ function UserInformation(props) {
                                         <div>
                                             <input
                                                 type="radio"
-                                                id="male"
+                                                id="Male"
                                                 className={clsx(styles.hide)}
-                                                onChange={() => setGender('male')}
-                                                checked={gender === 'male'}
+                                                checked={gender === 'Male'}
                                             />
 
                                             <label
                                                 className={clsx(styles.genderSelection, styles.formLabel, {
-                                                    [styles.checked]: gender === 'male',
+                                                    [styles.checked]: gender === 'Male',
                                                 })}
-                                                htmlFor="male"
+                                                htmlFor="Male"
                                             >
                                                 <Checkbox
                                                     className={clsx(styles.genderSelection, styles.formLabel, {
-                                                        [styles.checked]: gender === 'male',
+                                                        [styles.checked]: gender === 'Male',
                                                     })}
-                                                    checked={gender === 'male'}
-                                                    onChange={() => setGender('male')}
+                                                    checked={gender === 'Male'}
                                                 />
                                                 Nam
                                             </label>
@@ -265,23 +227,21 @@ function UserInformation(props) {
                                         <div>
                                             <input
                                                 type="radio"
-                                                id="female"
+                                                id="Female"
                                                 className={clsx(styles.hide)}
-                                                onChange={() => setGender('female')}
-                                                checked={gender === 'female'}
+                                                checked={gender === 'Female'}
                                             />
                                             <label
                                                 className={clsx(styles.genderSelection, styles.formLabel, {
-                                                    [styles.checked]: gender === 'female',
+                                                    [styles.checked]: gender === 'Female',
                                                 })}
-                                                htmlFor="female"
+                                                htmlFor="Female"
                                             >
                                                 <Checkbox
                                                     className={clsx(styles.genderSelection, styles.formLabel, {
-                                                        [styles.checked]: gender === 'female',
+                                                        [styles.checked]: gender === 'Female',
                                                     })}
-                                                    checked={gender === 'female'}
-                                                    onChange={() => setGender('female')}
+                                                    checked={gender === 'Female'}
                                                 />
                                                 Nữ
                                             </label>
@@ -290,23 +250,21 @@ function UserInformation(props) {
                                         <div>
                                             <input
                                                 type="radio"
-                                                id="others"
+                                                id="Other"
                                                 className={clsx(styles.hide)}
-                                                onChange={() => setGender('others')}
-                                                checked={gender === 'others'}
+                                                checked={gender === 'Other'}
                                             />
                                             <label
                                                 className={clsx(styles.genderSelection, styles.formLabel, {
-                                                    [styles.checked]: gender === 'others',
+                                                    [styles.checked]: gender === 'Other',
                                                 })}
-                                                htmlFor="others"
+                                                htmlFor="Other"
                                             >
                                                 <Checkbox
                                                     className={clsx(styles.genderSelection, styles.formLabel, {
-                                                        [styles.checked]: gender === 'others',
+                                                        [styles.checked]: gender === 'Other',
                                                     })}
-                                                    checked={gender === 'others'}
-                                                    onChange={() => setGender('others')}
+                                                    checked={gender === 'Other'}
                                                 />
                                                 Khác
                                             </label>
@@ -321,13 +279,13 @@ function UserInformation(props) {
                                     <input
                                         id="birthday"
                                         name="birthday"
-                                        min="1900-01-01"
-                                        max="2005-01-01"
-                                        type="date"
-                                        value={birthday}
-                                        onChange={(e) => setBirthday(e.target.value)}
+                                        type="text"
+                                        value={
+                                            birthday &&
+                                            `${birthday.slice(8, 10)}/${birthday.slice(5, 7)}/${birthday.slice(0, 4)}`
+                                        }
                                         className={clsx(styles.formInput, styles.row)}
-                                        required
+                                        disabled
                                     />
                                 </div>
                             </div>
@@ -386,10 +344,8 @@ function UserInformation(props) {
                                         name="born"
                                         type="text"
                                         value={born}
-                                        onChange={(e) => setBorn(e.target.value)}
-                                        placeholder="Quê quán..."
                                         className={clsx(styles.formInput, styles.row)}
-                                        required
+                                        disabled
                                     />
                                 </div>
 
@@ -428,7 +384,7 @@ function UserInformation(props) {
                         </div>
                     </div>
                     <div className={clsx(styles.formRow, styles.formFooter)}>
-                        <button value="Submit" type="submit" className={clsx(styles.btn, styles.primary)}>
+                        <button onClick={handleSubmit} className={clsx(styles.btn, styles.primary)}>
                             CẬP NHẬT
                         </button>
                     </div>
