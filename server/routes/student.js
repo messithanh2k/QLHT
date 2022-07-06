@@ -1,5 +1,5 @@
 import express from 'express'
-import {getStudent, getStudentList, createStudentAccount, deleteStudent, updateStudent, uploadFile} from '../controllers/student.js'
+import {getStudent, getStudentList, createStudentAccount, deleteStudent, updateStudent, uploadFile, getStudentTimetable} from '../controllers/student.js'
 import multer from 'multer'
 import { getClassDetail, registerClass } from '../controllers/student/register_class.js'
 
@@ -22,5 +22,7 @@ router.post('/upload',upload.single("upfile"), uploadFile);
 router.post('/getclassdetail', getClassDetail)
 
 router.post('/registerclass', registerClass)
+
+router.get('/timetable/:email',getStudentTimetable)
 
 export default router;

@@ -151,3 +151,7 @@ Content-Type: application/json
     "EndTime": 10,
     "MaxSV": 80
 }
+
+###
+GET http://localhost:3001/timetable/trung.vh180003@sis.hust.edu.vn
+Content-Type: application/json
