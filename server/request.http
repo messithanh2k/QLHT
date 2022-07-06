@@ -171,13 +171,4 @@ Content-Type: application/json
     "MaxSV": 80
 }
 
-###
 
-POST http://localhost:3001/lecturer/profile
-Content-Type: application/json
-
-{
-    "email": "hainn@soict.hust.edu.vn"
-}
-
-###

@@ -2,6 +2,7 @@ import { StudentModel } from "../models/Student.js";
 import path from "path";
 import excelToJson from "convert-excel-to-json";
 import fetch from "node-fetch";
+import { CourseModel } from "../models/Course.js";
 
 export const getStudentList = async (req, res) => {
   StudentModel.find((err, data) => {
@@ -254,3 +255,9 @@ async function importExcelData2MongoDB(filePath) {
 const isDate = (date) => {
   return new Date(date) !== "Invalid Date" && !isNaN(new Date(date));
 };
+
+
+export const getStudentTimetable = async (req,res) => {
+  const course = await CourseModel.find({email: req.params.email})
+  console.log(course)
+}

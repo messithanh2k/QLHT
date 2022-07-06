@@ -43,3 +43,4 @@ app.use('/subject', subject)
 app.use('/lecturer',lecturer)
 
 app.use('/class',classs)
+
