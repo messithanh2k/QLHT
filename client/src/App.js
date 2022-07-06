@@ -49,7 +49,7 @@ function App() {
                     }
                 ></Route>
                 <Route
-                    path="  "
+                    path="/accounts/students"
                     element={
                         <Home role="admin">
                             <StudentAccount></StudentAccount>
