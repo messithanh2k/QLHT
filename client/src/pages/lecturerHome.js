@@ -35,14 +35,14 @@ function LecturerHome() {
                 ></HomeCard>
 
                 <HomeCard
-                    link="/"
+                    link="/lecturer/classes"
                     title="Lớp học giảng dạy"
                     icon="classes"
                     description="Danh sách lớp giảng dạy và danh sách sinh viên trong từng lớp"
                 ></HomeCard>
 
                 <HomeCard
-                    link="/"
+                    link="/lecturer/timetable"
                     title="Lịch giảng dạy"
                     icon="calender"
                     description="Lịch giảng dạy trong tuần, trong tháng"

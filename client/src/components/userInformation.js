@@ -24,7 +24,7 @@ function UserInformation(props) {
     const user = props.user;
     console.log(user);
     console.log(user.phone);
-    const [avatarImg, setAvatarImg] = useState(user.avatarImg || defautlAvatar);
+    const [avatarImg, setAvatarImg] = useState(user.avatarImg);
     const sid = user.SID;
     const fullName = user.fullName;
     const email = user.email;
@@ -100,9 +100,10 @@ function UserInformation(props) {
         }
     }, [success]);
 
-    // useEffect(() => {
-    //     setPhone(user.phone);
-    // }, []);
+    useEffect(() => {
+        setAvatarImg(user.avatarImg);
+        setPhone(user.phone);
+    }, [user]);
 
     return (
         <div className={clsx(styles.registerContainer, styles.row)}>
@@ -400,4 +401,4 @@ function UserInformation(props) {
     );
 }
 
-export default memo(UserInformation);
+export default UserInformation;

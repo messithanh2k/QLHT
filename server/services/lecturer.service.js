@@ -3,6 +3,7 @@ import { httpStatus } from '../constants/httpStatus.js';
 import CustomError from '../error/customError.js';
 import { LecturerModel } from '../models/Lecturer.js';
 import { UserModel } from '../models/User.js';
+import { ClassModel } from '../models/Classs.js';
 
 const LecturerService = {};
 
@@ -29,10 +30,23 @@ LecturerService.updateLecturer = async (email, lecturerRequest) => {
     throw new CustomError(
       httpStatus.INTERNAL_SERVER_ERROR,
       apiStatus.DATABASE_ERROR,
-      `Lecturer not found with id: ${email}`
+      `Lecturer not found with email: ${email}`
     );
   }
   return updateLecturer;
+};
+LecturerService.getClasses = async (email) => {
+  let lecturer = await LecturerModel.findOne({ Email: email });
+  if (!lecturer) {
+    throw new CustomError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      apiStatus.DATABASE_ERROR,
+      `Lecturer not found with email: ${email}`
+    );
+  } else {
+    let classes = await ClassModel.find({ LecID: lecturer.FullName });
+    return classes;
+  }
 };
 
 export default LecturerService;

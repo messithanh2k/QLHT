@@ -6,7 +6,7 @@ function Home(props) {
     return (
         <div>
             <Header></Header>
-            <div>{props.children}</div>
+            {/* <div>{props.children}</div> */}
             <Footer></Footer>
         </div>
     );
