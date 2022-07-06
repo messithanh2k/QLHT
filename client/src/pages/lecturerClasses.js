@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import styles from './CSS/LecturerClassesCSS.module.scss';
-import MUIDataTable from 'mui-datatables';
+// import MUIDataTable from 'mui-datatables';
 import TokenService from '../service/TokenService';
 import RoleService from '../service/RoleService';
 import GmailService from '../service/GmailService';
@@ -121,13 +121,13 @@ function LecturerClasses(props) {
 
                     <div className={clsx(styles.pageContent)}>
                         <div className={clsx(styles.pageBody)}>
-                            <MUIDataTable
+                            {/* <MUIDataTable
                                 className={clsx(styles.dataTable)}
                                 title={'Thông tin lớp học của giảng viên'}
                                 data={data}
                                 columns={columns}
                                 options={options}
-                            />
+                            /> */}
                         </div>
                     </div>
                     <Footer />

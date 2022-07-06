@@ -133,7 +133,7 @@ function Header() {
                     <Link to="/lecturer/home" className={clsx(styles.headerTab)}>
                         TRANG CHỦ
                     </Link>
-                    <Link to="/lecturer/classes" className={clsx(styles.headerTab)}>
+                    <Link to="/lecturer/sub" className={clsx(styles.headerTab)}>
                         GIẢNG DẠY
                     </Link>
                     <Link to="/lecturer/timetable" className={clsx(styles.headerTab)}>
