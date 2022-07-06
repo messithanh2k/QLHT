@@ -5,6 +5,8 @@ import StudentAccount from './Accounts/Students/StudentsAccount';
 import LecturerAccount from './Accounts/Lecturers/LecturerAccount';
 import LecturerHome from './pages/lecturerHome';
 import LecturerInformation from './pages/lecturerInformation';
+import LecturerClasses from './pages/lecturerClasses';
+import LecturerTimetable from './pages/lecturerTimetable';
 import Subject from './Subject/SubjectList';
 import Classs from './Class/ClassList';
 import Timetable from './pages/student/Timetable';
@@ -25,39 +27,41 @@ function App() {
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
                 <Route path="/lecturer/login" element={<Login role="lecturer" />}></Route>
                 <Route path="/lecturer/information" element={<LecturerInformation />}></Route>
-                <Route 
-                    path="/subjects" 
+                <Route path="/lecturer/classes" element={<LecturerClasses />}></Route>
+                <Route path="/lecturer/timetable" element={<LecturerTimetable />}></Route>
+
+                <Route
+                    path="/subjects"
                     element={
                         <Home role="admin">
                             <Subject></Subject>
                         </Home>
-                    }>
-
-                </Route>
-                <Route 
-                    path="/classes" 
+                    }
+                ></Route>
+                <Route
+                    path="/classes"
                     element={
                         <Home role="admin">
                             <Classs></Classs>
                         </Home>
-                    }>
-                </Route>
-                <Route 
-                    path="/accounts/students" 
+                    }
+                ></Route>
+                <Route
+                    path="  "
                     element={
                         <Home role="admin">
                             <StudentAccount></StudentAccount>
                         </Home>
-                    }>
-                </Route>
-                <Route 
-                    path="/accounts/lecturers" 
+                    }
+                ></Route>
+                <Route
+                    path="/accounts/lecturers"
                     element={
                         <Home role="admin">
                             <LecturerAccount></LecturerAccount>
                         </Home>
-                    }>
-                </Route>
+                    }
+                ></Route>
                 <Route
                     path="/student/timetable"
                     element={

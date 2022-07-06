@@ -4,9 +4,12 @@ import path from 'path';
 import excelToJson from 'convert-excel-to-json';
 import fetch from 'node-fetch';
 import LecturerService from '../services/lecturer.service.js';
+import SubjectService from '../services/subject.service.js';
+import { SubjectModel } from '../models/Subject.js';
 import UserService from '../services/user.service.js';
 import { httpStatus } from '../constants/httpStatus.js';
 import { apiStatus } from '../constants/apiStatus.js';
+import moment from 'moment';
 
 export const getLecturerList = async (req, res) => {
   LecturerModel.find((err, data) => {
@@ -297,3 +300,133 @@ export const findOneAndUpdate = async (req, res) => {
     });
   }
 };
+
+export const getClasses = async (req, res) => {
+  //console.log(req.body);
+  try {
+    let lecturerEmail = req.body.email;
+    let classesFind = await LecturerService.getClasses(lecturerEmail);
+
+    return res.status(httpStatus.OK).json({
+      status: apiStatus.SUCCESS,
+      message: "get lecture's classes successfully",
+      data: classesFind,
+    });
+  } catch (e) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: apiStatus.OTHER_ERROR,
+      message: e.message,
+    });
+  }
+};
+
+const MAPPING_DAY_OF_WEEK = {
+  Sunday: 0,
+  Monday: 1,
+  Tuesday: 2,
+  Wednesday: 3,
+  Thursday: 4,
+  Friday: 5,
+  Saturday: 6,
+};
+
+export const getLecturerTimetable = async (req, res) => {
+  try {
+    let lecturerEmail = req.body.email;
+    let classesFind = await LecturerService.getClasses(lecturerEmail);
+    // console.log(classesFind);
+    let classesName = [];
+    for (let i = 0; i < classesFind.length; i++) {
+      await SubjectModel.findOne({ SubID: classesFind[i].SubID })
+        .then((d) => classesName.push(d.SubName))
+        .catch((err) => console.log(err));
+    }
+    let timetable = [];
+    timetable = classesFind.map((item, index) => {
+      const course = {};
+      course.ClassID = item.ClassID;
+      course.StartTime = item.StartTime;
+      course.EndTime = item.EndTime;
+      course.Room = item.Room;
+      course.Name = classesName[index];
+      course.Day = item.Day;
+      return course;
+    });
+    let data = [];
+    if (timetable.length > 0) {
+      for (let i = 0; i < timetable.length; i++) {
+        const dayArray = getDaysBetween(MAPPING_DAY_OF_WEEK[timetable[i].Day]);
+        for (let j = 0; j < dayArray.length; j++) {
+          const split = dayArray[j].split(' ');
+          data.push({
+            StartTime: timetable[i].StartTime,
+            EndTime: timetable[i].EndTime,
+            day: Number(split[2]),
+            month: Number(split[1]),
+            year: Number(split[0]),
+            Room: timetable[i].Room,
+            name: timetable[i].Name,
+          });
+        }
+      }
+    }
+    //   }
+    return res.status(httpStatus.OK).json({
+      status: apiStatus.SUCCESS,
+      message: "get lecture's timetabe successfully",
+      data: data,
+    });
+  } catch (e) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: apiStatus.OTHER_ERROR,
+      message: e.message,
+    });
+  }
+  // let lecturerEmail = req.body.email;
+  // let classesFind = await LecturerService.getClasses(lecturerEmail);
+  // if (classesFind) {
+  //   console.log(classesFind);
+  //   const classes = course.Classes;
+  //   const data = [];
+  //   for (let i = 0; i < classes.length; i++) {
+  //     await ClassModel.findOne({ ClassID: classes[i].ClassID })
+  //       .then((d) => data.push(d))
+  //       .catch((err) => console.log(err));
+  //   }
+  //   if (data.length > 0) {
+  //     for (let i = 0; i < data.length; i++) {
+  //       const dayArray = getDaysBetween(MAPPING_DAY_OF_WEEK[data[i].Day]);
+  //       const subject = await SubjectModel.findOne({ SubID: data[i].SubID });
+  //       for (let j = 0; j < dayArray.length; j++) {
+  //         const split = dayArray[j].split(' ');
+  //         timetable.push({
+  //           StartTime: data[i].StartTime,
+  //           EndTime: data[i].EndTime,
+  //           day: Number(split[2]),
+  //           month: Number(split[1]),
+  //           year: Number(split[0]),
+  //           Room: data[i].Room,
+  //           name: subject.SubName,
+  //         });
+  //       }
+  //     }
+  //   }
+  // } else {
+  //   res.status(400).json({ success: false, message: 'not found' });
+  // }
+};
+
+const dateFormatTemplate = 'YYYY MM DD';
+
+function getDaysBetween(DayOfWeek) {
+  const initialDate = moment('2022-03-27', dateFormatTemplate);
+  const endDate = moment(initialDate).add(4, 'month');
+  const dayArray = [];
+
+  while (initialDate.isSameOrBefore(endDate)) {
+    if (initialDate.day() === DayOfWeek)
+      dayArray.push(initialDate.format(dateFormatTemplate));
+    initialDate.add(1, 'day');
+  }
+  return dayArray;
+}

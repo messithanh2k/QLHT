@@ -7,6 +7,8 @@ import {
   uploadFile,
   getLecturerByEmail,
   findOneAndUpdate,
+  getClasses,
+  getLecturerTimetable,
 } from '../controllers/lecturer.js';
 import multer from 'multer';
 
@@ -29,4 +31,9 @@ router.post('/upload', upload.single('upfile'), uploadFile);
 router.post('/profile', getLecturerByEmail);
 
 router.post('/update-profile', findOneAndUpdate);
+
+router.post('/getClasses', getClasses);
+
+router.post('/timetable', getLecturerTimetable);
+
 export default router;

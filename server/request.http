@@ -113,6 +113,22 @@ Content-Type: application/json
     "PhoneNumber": "0330000000",
     "password": "12345678"
 }
+
+###
+POST  http://localhost:3001/lecturer/profile
+Content-Type: application/json
+
+{
+    "email": "thangdm@soict.hust.edu.vn"
+}
+###
+
+POST  http://localhost:3001/lecturer/getClasses
+Content-Type: application/json
+
+{
+    "email": "hieunk@soict.hust.edu.vn"
+}
 ###
 GET http://localhost:3001/subject/getStudent/20180001
 Content-Type: application/json
@@ -185,3 +201,14 @@ Content-Type: application/json
 
 GET http://localhost:3001/student/timetable/trung.vh180003@sis.hust.edu.vn
 Content-Type: application/json
+
+###
+
+POST http://localhost:3001/lecturer/timetable
+Content-Type: application/json
+
+{
+    "email": "hieunk@soict.hust.edu.vn"
+
+}
+###

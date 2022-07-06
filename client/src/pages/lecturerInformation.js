@@ -40,7 +40,7 @@ function LecturerInformation() {
         axios
             .post('http://localhost:3001/lecturer/profile', { email: email })
             .then((res) => {
-                // console.log(res);
+                console.log(res);
                 const data = res.data.data;
                 console.log(res.data.data);
                 const lec = {

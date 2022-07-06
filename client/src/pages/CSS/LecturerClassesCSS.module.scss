@@ -1,0 +1,15 @@
+.pageContent {
+    min-height: calc(100vh - 450px);
+    margin: 0px 10%;
+    padding: 20px 0px;
+    align-items: center;
+}
+.pageBody {
+    width: 100%;
+}
+.dataTable {
+    width: 100%;
+    table {
+        min-height: 100px;
+    }
+}
