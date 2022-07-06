@@ -6,7 +6,6 @@ function Home(props) {
     return (
         <div>
             <Header></Header>
-            <h1>{role}</h1>
             <div>{props.children}</div>
             <Footer></Footer>
         </div>

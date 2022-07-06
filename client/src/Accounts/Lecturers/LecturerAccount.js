@@ -198,25 +198,7 @@ import {
     render() {
       return (
         <Container maxWidth="lg">
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-  
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Home
-              </Typography>
-              <Button color="inherit">Login</Button>
-            </Toolbar>
-          </AppBar>
-          <Container maxWidth="lg" sx={{ mt: 5 }}>
+          <Container maxWidth="lg" sx={{ mt: 5 , mb: 10}}>
             <div style={{ height: 630, width: '100%' }}>
               <DataGrid
                 disableSelectionOnClick

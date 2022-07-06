@@ -25,10 +25,39 @@ function App() {
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
                 <Route path="/lecturer/login" element={<Login role="lecturer" />}></Route>
                 <Route path="/lecturer/information" element={<LecturerInformation />}></Route>
-                <Route path="/accounts/students" element={<StudentAccount />}></Route>
-                <Route path="/accounts/lecturers" element={<LecturerAccount />}></Route>
-                <Route path="/subjects" element={<Subject />}></Route>
-                <Route path="/classes" element={<Classs />}></Route>
+                <Route 
+                    path="/subjects" 
+                    element={
+                        <Home role="admin">
+                            <Subject></Subject>
+                        </Home>
+                    }>
+
+                </Route>
+                <Route 
+                    path="/classes" 
+                    element={
+                        <Home role="admin">
+                            <Classs></Classs>
+                        </Home>
+                    }>
+                </Route>
+                <Route 
+                    path="/accounts/students" 
+                    element={
+                        <Home role="admin">
+                            <StudentAccount></StudentAccount>
+                        </Home>
+                    }>
+                </Route>
+                <Route 
+                    path="/accounts/lecturers" 
+                    element={
+                        <Home role="admin">
+                            <LecturerAccount></LecturerAccount>
+                        </Home>
+                    }>
+                </Route>
                 <Route
                     path="/student/timetable"
                     element={

@@ -14,7 +14,7 @@ Content-Type: application/json
 {
     "email": "20180001@sis.hust.edu.vn",
     "password": "20180001",
-    "role": "student"
+    "role": "admin"
 }
 
 ###

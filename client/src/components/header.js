@@ -95,6 +95,9 @@ function Header() {
                     <Link to="/student/login" className={clsx(styles.headerTab)}>
                         SINH VIÊN
                     </Link>
+                    <Link to="/admin/login" className={clsx(styles.headerTab)}>
+                        ADMIN
+                    </Link>
                     <Link to="/" className={clsx(styles.headerTab)}>
                         LIÊN HỆ
                     </Link>
@@ -143,14 +146,17 @@ function Header() {
             )}
             {role === 'admin' && (
                 <Box className={clsx(styles.headerBottom)}>
-                    <Link to="/home/admin" className={clsx(styles.headerTab)}>
-                        TRANG CHỦ
+                    <Link to="/accounts/lecturers" className={clsx(styles.headerTab)}>
+                        QUẢN LÝ GIẢNG VIÊN
                     </Link>
-                    <Link to="/" className={clsx(styles.headerTab)}>
-                        GIẢNG VIÊN
+                    <Link to="/accounts/students" className={clsx(styles.headerTab)}>
+                        QUẢN LÝ SINH VIÊN
                     </Link>
-                    <Link to="/" className={clsx(styles.headerTab)}>
-                        SINH VIÊN
+                    <Link to="/classes" className={clsx(styles.headerTab)}>
+                        QUẢN LÝ LỚP HỌC
+                    </Link>
+                    <Link to="/subjects" className={clsx(styles.headerTab)}>
+                        QUẢN LÝ MÔN HỌC
                     </Link>
                 </Box>
             )}
