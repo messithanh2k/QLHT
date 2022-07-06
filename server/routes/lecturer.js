@@ -7,6 +7,7 @@ import {
   uploadFile,
   getLecturerByEmail,
   findOneAndUpdate,
+  getLecturerSub,
 } from '../controllers/lecturer.js';
 import multer from 'multer';
 
@@ -15,6 +16,7 @@ const upload = multer({ dest: 'uploads/' });
 const router = express.Router();
 
 router.get('/', getLecturerList);
+router.post('/sub', getLecturerSub);
 
 router.post('/create', createLecturerAccount);
 

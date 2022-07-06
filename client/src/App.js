@@ -8,6 +8,7 @@ import LecturerInformation from './pages/lecturerInformation';
 import Subject from './Subject/SubjectList';
 import Classs from './Class/ClassList';
 import Timetable from './pages/student/Timetable';
+import SubList from './pages/lecturer/Sublist';
 import Result from './pages/student/Result';
 import RegisterClass from './pages/student/RegisterClass';
 import EduProgram from './pages/student/EduProgram';
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/" element={<Home role="" />}></Route>
                 <Route path="/student/home" element={<Home role="student" />}></Route>
                 <Route path="/lecturer/home" element={<LecturerHome />}></Route>
+                <Route path="/lecturer/sub2" element={<lecSub role="lecturer" />}></Route>
                 <Route path="/admin/home" element={<Home role="admin" />}></Route>
                 <Route path="/student/login" element={<Login role="student" />}></Route>
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
@@ -63,6 +65,14 @@ function App() {
                     element={
                         <Home role="student">
                             <Timetable></Timetable>
+                        </Home>
+                    }
+                ></Route>
+                <Route
+                    path="/lecturer/sub"
+                    element={
+                        <Home role="lecturer">
+                            <SubList></SubList>
                         </Home>
                     }
                 ></Route>

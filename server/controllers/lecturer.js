@@ -1,5 +1,8 @@
 import { LecturerModel } from '../models/Lecturer.js';
 import { UserModel } from '../models/User.js';
+import { ClassModel } from "../models/Classs.js";
+import { SubjectModel } from "../models/Subject.js";
+import { StudentModel } from "../models/Student.js";
 import path from 'path';
 import excelToJson from 'convert-excel-to-json';
 import fetch from 'node-fetch';
@@ -7,6 +10,7 @@ import LecturerService from '../services/lecturer.service.js';
 import UserService from '../services/user.service.js';
 import { httpStatus } from '../constants/httpStatus.js';
 import { apiStatus } from '../constants/apiStatus.js';
+import mongoose from 'mongoose';
 
 export const getLecturerList = async (req, res) => {
   LecturerModel.find((err, data) => {
@@ -295,5 +299,38 @@ export const findOneAndUpdate = async (req, res) => {
       status: apiStatus.OTHER_ERROR,
       message: e.message,
     });
+  }
+};
+
+
+export const getLecturerSub = async (req, res) => {
+  const lecID = req.body.LecID;
+  const lecClass = []
+  const classs = await ClassModel.find({ LecID: lecID });
+  if (classs) {
+    for (let i = 0 ; i < classs.length ; i++) {
+      const stu = []
+      const subject = await SubjectModel.findOne({SubID: classs[i].SubID});
+      for (let j = 0 ; j < classs[i].Student.length ; j++) {
+       await StudentModel.findOne({Email:  classs[i].Student[j]})
+       .then(d => stu.push({name: d.FullName,
+        mssv: d.SID
+      }))
+       .catch(err => console.log(err))
+      }
+      lecClass.push({StartTime: classs[i].StartTime,
+        EndTime: classs[i].EndTime,
+        ClassID: classs[i].ClassID,
+        SubID: classs[i].SubID,
+        Day: classs[i].Day,
+        Room: classs[i].Room,
+        name: subject.SubName,
+        Students : stu,
+        numSV: stu.length
+      });
+    }
+    res.status(200).json(lecClass);
+  } else {
+    res.status(400).json({ message: "error found" });
   }
 };
