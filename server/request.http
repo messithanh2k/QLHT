@@ -171,4 +171,17 @@ Content-Type: application/json
     "MaxSV": 80
 }
 
+###
 
+POST http://localhost:3001/lecturer/profile
+Content-Type: application/json
+
+{
+    "email": "hainn@soict.hust.edu.vn"
+    
+}
+
+###
+
+GET http://localhost:3001/student/timetable/trung.vh180003@sis.hust.edu.vn
+Content-Type: application/json

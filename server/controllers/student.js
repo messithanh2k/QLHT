@@ -3,6 +3,9 @@ import path from "path";
 import excelToJson from "convert-excel-to-json";
 import fetch from "node-fetch";
 import { CourseModel } from "../models/Course.js";
+import { ClassModel } from "../models/Classs.js";
+import moment from "moment";
+import {SubjectModel} from "../models/Subject.js";
 
 export const getStudentList = async (req, res) => {
   StudentModel.find((err, data) => {
@@ -257,7 +260,64 @@ const isDate = (date) => {
 };
 
 
+const MAPPING_DAY_OF_WEEK = {
+  'Sunday': 0,
+  'Monday': 1,
+  'Tuesday': 2,
+  'Wednesday': 3,
+  'Thursday': 4,
+  'Friday': 5,
+  'Saturday': 6
+}
+
 export const getStudentTimetable = async (req,res) => {
-  const course = await CourseModel.find({email: req.params.email})
-  console.log(course)
+  const timetable = []
+  const course = await CourseModel.findOne({email: req.params.email})
+  if (course) {
+    const classes = course.Classes;
+    const data = []; 
+    for (let i = 0 ; i < classes.length ; i++) {
+      await ClassModel.findOne({ClassID: classes[i].ClassID})
+      .then(d => data.push(d))
+      .catch(err => console.log(err))
+    }
+    if (data.length > 0) {
+      for (let i = 0 ; i < data.length ; i++) {
+        const dayArray = getDaysBetween(MAPPING_DAY_OF_WEEK[data[i].Day]);
+        const subject = await SubjectModel.findOne({SubID: data[i].SubID});
+        for (let j = 0 ; j<dayArray.length ; j++) {
+          const split = dayArray[j].split(' ');
+          timetable.push({StartTime: data[i].StartTime,
+            EndTime: data[i].EndTime,
+            day: Number(split[2]),
+            month: Number(split[1]),
+            year: Number(split[0]),
+            Room: data[i].Room,
+            name: subject.SubName
+          });
+        }
+      }
+    }
+    res.status(200).json({succes: true, timetable});
+  }
+  else {
+    res.status(400).json({success: false, message: "not found"})
+  }
+  
+}
+
+
+const dateFormatTemplate = 'YYYY MM DD';
+
+function getDaysBetween(DayOfWeek) {
+
+const initialDate = moment('2022-03-27', dateFormatTemplate);
+const endDate = moment(initialDate).add(4, 'month');
+const dayArray = []
+
+while (initialDate.isSameOrBefore(endDate)) {
+  if (initialDate.day() === DayOfWeek) dayArray.push(initialDate.format(dateFormatTemplate));
+  initialDate.add(1, 'day');
+}
+return dayArray
 }
