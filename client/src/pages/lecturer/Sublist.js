@@ -4,11 +4,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import SubDetail from './SubDetail'
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
-
+import GmailService from '../../service/GmailService';
 class SubList extends React.Component {
+    
   constructor(props) {
+    
     super(props);
     this.state = {
+        
       columns: [
         { field: 'id', headerName: 'Index', width: 90 },
         { field: 'ClassID', headerName: 'ClassID', width: 200 },
@@ -57,13 +60,14 @@ class SubList extends React.Component {
   }
 
   componentDidMount() {
+    const email = GmailService.getLocalGmail();
     fetch('http://localhost:3001/lecturer/sub', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        "LecID": "Đỗ Bá Lâm"
+        "email": email
        
       })
     })

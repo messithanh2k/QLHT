@@ -433,9 +433,11 @@ function getDaysBetween(DayOfWeek) {
 }
 
 export const getLecturerSub = async (req, res) => {
-  const lecID = req.body.LecID;
+  const email = req.body.email;
+  // const lecID = req.body.LecID;
   const lecClass = []
-  const classs = await ClassModel.find({ LecID: lecID });
+  const lect = await LecturerModel.findOne({ Email: email });
+  const classs = await ClassModel.find({ LecID: lect.FullName });
   if (classs) {
     for (let i = 0 ; i < classs.length ; i++) {
       const stu = []
