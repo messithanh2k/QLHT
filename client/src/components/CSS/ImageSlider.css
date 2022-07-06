@@ -9,3 +9,7 @@
     border-radius: 4px;
     background-color: rgba(240, 240, 240, 0.5 );
 }
+.coverImage{
+    width: 100%;
+    height: auto;
+}

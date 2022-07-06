@@ -29,10 +29,24 @@ function App() {
                         </Home>
                     }
                 ></Route>
-                <Route path="/student/home" element={<Home role="student" />}></Route>
+                <Route
+                    path="/student/home"
+                    element={
+                        <Home role="student">
+                            <ImageSlider />
+                        </Home>
+                    }
+                ></Route>
                 <Route path="/lecturer/home" element={<LecturerHome />}></Route>
                 {/* <Route path="/lecturer/sub" element={<lecSub role="lecturer" />}></Route> */}
-                <Route path="/admin/home" element={<Home role="admin" />}></Route>
+                <Route
+                    path="/admin/home"
+                    element={
+                        <Home role="admin">
+                            <ImageSlider />
+                        </Home>
+                    }
+                ></Route>
                 <Route path="/student/login" element={<Login role="student" />}></Route>
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
                 <Route path="/lecturer/login" element={<Login role="lecturer" />}></Route>
