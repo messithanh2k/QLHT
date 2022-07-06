@@ -2,6 +2,19 @@ import { useState } from "react";
 import { Button } from '@mui/material';
 import GmailService from "../../service/GmailService";
 
+function checkOverlap(arr, classs){
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i]["Day"] === classs["Day"] && 
+            ((arr[i]["StartTime"] <= classs["StartTime"] && 
+            classs["StartTime"] < arr[i]["EndTime"])||
+            (arr[i]["StartTime"] < classs["EndTime"] && 
+            classs["EndTime"] <= arr[i]["EndTime"])||
+            (classs["StartTime"] <= arr[i]["StartTime"]   && classs["EndTime"] >= arr[i]["EndTime"]))){
+            return true
+        }
+    }
+    return false
+}
 
 function RegisterClass(){
     const [hp, setHp] = useState('')
@@ -35,6 +48,9 @@ function RegisterClass(){
                 if (data.success === true){
                     if (maHps.includes(data["classs"].SubID)){
                         setError("trùng mã học phần")
+                    }
+                    else if (checkOverlap(classes, data["classs"]) === true){
+                        setError("trùng lịch")
                     }
                     else{
                         setHps(prev => [...prev, hp])
