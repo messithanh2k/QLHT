@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from './CSS/HeaderCSS.module.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TokenService from '../service/TokenService';
 import RoleService from '../service/RoleService';
-import avatarSample from '../assets/images/avatar_sample.jpg';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import logo from '../assets/images/hust-logo.jpeg';
