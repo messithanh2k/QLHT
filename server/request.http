@@ -24,7 +24,7 @@ Content-Type: application/json
 {
     "email": "nhathai.nguyen@sis.hust.edu.vn",
     "password": "nhathai123",
-    "role": "lecture"
+    "role": "lecturer"
 }
 
 ###
@@ -93,8 +93,27 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3001/lecturer/create
+Content-Type: application/json
 
+{
+    "FullName": "Nguyễn Nhất Hải",
+    "DateOfBirth": "1989-01-01",
+    "Sex": "Male",
+    "Born": "Hà Nội",
+    "IdentityNumber": " ",
+    "PhoneNumber": "0330000000"
+}
+###
+POST  http://localhost:3001/lecturer/update-profile
+Content-Type: application/json
 
+{
+    "email": "hainn@soict.hust.edu.vn",
+    "PhoneNumber": "0330000000",
+    "password": "12345678"
+}
+###
 GET http://localhost:3001/subject/getStudent/20180001
 Content-Type: application/json
 
@@ -123,7 +142,7 @@ POST http://localhost:3001/student/getclassdetail
 Content-Type: application/json
 
 {
-    "ClassID": "b"
+    "ClassID": "12784"
 }
 
 ###
@@ -132,8 +151,8 @@ POST http://localhost:3001/student/registerclass
 Content-Type: application/json
 
 {
-    "SID": "20183633",
-    "classes": [123, 234]
+    "email": "trung.vh180003@sis.hust.edu.vn",
+    "classes": [12784, 12785]
 }
 
 ###
@@ -152,6 +171,4 @@ Content-Type: application/json
     "MaxSV": 80
 }
 
-###
-GET http://localhost:3001/timetable/trung.vh180003@sis.hust.edu.vn
-Content-Type: application/json
+

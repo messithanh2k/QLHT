@@ -15,10 +15,10 @@ export const getClassDetail = async (req, res) => {
 }
 
 export const registerClass = async (req, res) => {
-    const {SID, classes} = req.body
+    const {email, classes} = req.body
     const Classes = classes.map(classs => ({ClassID: classs}))
     const course = new CourseModel({
-        SID: SID,
+        email: email,
         Classes: Classes
     });
     await course.save((err)=>{

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const CourseSchema = mongoose.Schema({
-    SID: {
+    email: {
         type: String,
         required: true,
         unique: true

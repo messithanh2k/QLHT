@@ -1,0 +1,9 @@
+.pageContent {
+    min-height: calc(100vh - 450px);
+    margin: 0px 10%;
+    padding: 20px 0px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 20px;
+    align-items: center;
+}
