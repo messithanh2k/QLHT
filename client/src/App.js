@@ -5,7 +5,7 @@ import StudentAccount from './Accounts/Students/StudentsAccount';
 import LecturerAccount from './Accounts/Lecturers/LecturerAccount';
 import LecturerHome from './pages/lecturerHome';
 import LecturerInformation from './pages/lecturerInformation';
-// import LecturerClasses from './pages/lecturerClasses';
+import StudentInformation from './pages/studentInformation';
 import LecturerTimetable from './pages/lecturerTimetable';
 import Subject from './Subject/SubjectList';
 import Classs from './Class/ClassList';
@@ -14,13 +14,21 @@ import SubList from './pages/lecturer/Sublist';
 import Result from './pages/student/Result';
 import RegisterClass from './pages/student/RegisterClass';
 import EduProgram from './pages/student/EduProgram';
+import ImageSlider from './components/imageSlider';
 //  a0b337e8c685cc41b686c2136b2a9b531e2bc5c7
 
 function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Home role="" />}></Route>
+                <Route
+                    path="/"
+                    element={
+                        <Home role="">
+                            <ImageSlider />
+                        </Home>
+                    }
+                ></Route>
                 <Route path="/student/home" element={<Home role="student" />}></Route>
                 <Route path="/lecturer/home" element={<LecturerHome />}></Route>
                 {/* <Route path="/lecturer/sub" element={<lecSub role="lecturer" />}></Route> */}
@@ -29,6 +37,8 @@ function App() {
                 <Route path="/admin/login" element={<Login role="admin" />}></Route>
                 <Route path="/lecturer/login" element={<Login role="lecturer" />}></Route>
                 <Route path="/lecturer/information" element={<LecturerInformation />}></Route>
+                <Route path="/student/information" element={<StudentInformation />}></Route>
+
                 {/* <Route path="/lecturer/classes" element={<LecturerClasses />}></Route> */}
                 <Route path="/lecturer/timetable" element={<LecturerTimetable />}></Route>
 

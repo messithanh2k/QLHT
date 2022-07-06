@@ -212,3 +212,12 @@ Content-Type: application/json
 
 }
 ###
+
+###
+POST  http://localhost:3001/student/profile
+Content-Type: application/json
+
+{
+    "email": "trung.vh180003@sis.hust.edu.vn"
+}
+###

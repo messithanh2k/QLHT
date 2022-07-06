@@ -65,7 +65,7 @@ function Header() {
                         <div>
                             <Avatar
                                 alt="avatar"
-                                src={avatarSample}
+                                src={logo}
                                 aria-controls={open ? 'basic-menu' : undefined}
                                 aria-haspopup="true"
                                 aria-expanded={open ? 'true' : undefined}
@@ -105,7 +105,7 @@ function Header() {
             )}
             {role === 'student' && (
                 <Box className={clsx(styles.headerBottom)}>
-                    <Link to="/student/home" className={clsx(styles.headerTab)}>
+                    <Link to="/" className={clsx(styles.headerTab)}>
                         TRANG CHỦ
                     </Link>
                     <Link to="/student/result" className={clsx(styles.headerTab)}>
@@ -120,12 +120,6 @@ function Header() {
                     <Link to="/student/eduprogram" className={clsx(styles.headerTab)}>
                         CHƯƠNG TRÌNH ĐÀO TẠO
                     </Link>
-                    <Link to="/" className={clsx(styles.headerTab)}>
-                        BIỂU MẪU
-                    </Link>
-                    <Link to="/" className={clsx(styles.headerTab)}>
-                        HỎI ĐÁP
-                    </Link>
                 </Box>
             )}
             {role === 'lecturer' && (
@@ -138,9 +132,6 @@ function Header() {
                     </Link>
                     <Link to="/lecturer/timetable" className={clsx(styles.headerTab)}>
                         LỊCH CÔNG TÁC
-                    </Link>
-                    <Link to="/" className={clsx(styles.headerTab)}>
-                        NCKH
                     </Link>
                 </Box>
             )}

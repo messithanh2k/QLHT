@@ -1,0 +1,94 @@
+.pageContent {
+    padding: 0px 20px;
+    min-height: calc(100vh - 450px);
+    font-size: 16px;
+}
+.pageTitle {
+    width: 100%;
+    text-align: center;
+    padding: 40px 0px 20px 0px;
+    text-transform: uppercase;
+}
+.pageTop {
+    display: flex;
+    align-items: center;
+}
+.pageFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button {
+        margin-bottom: 12px;
+    }
+}
+.error {
+    color: var(--primary);
+    font-size: 20px;
+    padding: 12px 0px 0px 50px;
+    line-height: 100%;
+}
+.icon {
+    color: var(--primary);
+}
+.inputClassID {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px 0px 0px 0px;
+    input {
+        font-size: 16px;
+        width: 400px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: vertical;
+        margin: 0px 20px;
+    }
+    input:focus-visible {
+        outline-color: var(--primary);
+    }
+}
+.addSpace {
+    min-width: 50px;
+}
+.dataTable {
+    width: 100%;
+    td {
+        padding: 12px;
+        border: 1px solid #ccc;
+    }
+    th {
+        padding: 12px;
+        border: 1px solid #ccc;
+    }
+}
+
+.btn {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border: none;
+    /* Remove borders */
+    border-radius: 4px;
+    /* Add a text color */
+    padding: 12px 28px;
+    /* Add some padding */
+    cursor: pointer;
+    outline: 2px solid var(--primary);
+
+    /* Add a pointer cursor on mouse-over */
+}
+
+.btn.primary {
+    background-color: #fff;
+    color: var(--primary);
+    outline: 2px solid var(--primary);
+}
+
+/* Blue */
+.btn.primary:hover {
+    color: white;
+    background-color: var(--primary);
+}

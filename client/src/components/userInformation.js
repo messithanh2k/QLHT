@@ -101,7 +101,7 @@ function UserInformation(props) {
     }, [success]);
 
     useEffect(() => {
-        setAvatarImg(user.avatarImg);
+        setAvatarImg(user.avatarImg || defautlAvatar);
         setPhone(user.phone);
     }, [user]);
 
@@ -123,7 +123,7 @@ function UserInformation(props) {
                         <div className={clsx(styles.formLeft)}>
                             <div className={clsx(styles.formRow, styles.row)}>
                                 {role === 'student' && (
-                                    <div className={clsx(styles.formField, styles.col3)}>
+                                    <div className={clsx(styles.formField, styles.col4)}>
                                         <label htmlFor="sid" className={clsx(styles.formLabel, styles.row)}>
                                             Mã sinh viên:
                                         </label>
@@ -137,7 +137,7 @@ function UserInformation(props) {
                                         />
                                     </div>
                                 )}
-                                <div className={clsx(styles.formField, styles.col3)}>
+                                <div className={clsx(styles.formField, styles.col4)}>
                                     <label htmlFor="fullName" className={clsx(styles.formLabel, styles.row)}>
                                         Họ và tên:
                                     </label>
@@ -151,7 +151,7 @@ function UserInformation(props) {
                                     />
                                 </div>
 
-                                <div className={clsx(styles.formField, styles.col3)}>
+                                <div className={clsx(styles.formField, styles.col4)}>
                                     <label htmlFor="email" className={clsx(styles.formLabel, styles.row)}>
                                         Email:
                                     </label>
@@ -164,7 +164,7 @@ function UserInformation(props) {
                                         disabled
                                     />
                                 </div>
-                                <div className={clsx(styles.formField, styles.col3)}>
+                                <div className={clsx(styles.formField, styles.col4)}>
                                     <label htmlFor="identityNumber" className={clsx(styles.formLabel, styles.row)}>
                                         CMND/CCCD:
                                     </label>
@@ -327,7 +327,7 @@ function UserInformation(props) {
                                     </div>
                                     <div className={clsx(styles.formField, styles.col3)}>
                                         <label htmlFor="schoolYear" className={clsx(styles.formLabel, styles.row)}>
-                                            Năm bắt đầu:
+                                            Khóa:
                                         </label>
                                         <input
                                             id="schoolYear"
